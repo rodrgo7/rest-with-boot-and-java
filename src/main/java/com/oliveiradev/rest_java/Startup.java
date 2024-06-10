@@ -1,7 +1,9 @@
-package com.oliveiradev.rest_with_boot_and_java.rest_with_boot_and_java;
+package com.oliveiradev.rest_java;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.oliveiradev.rest_java.Startup;
 
 @SpringBootApplication
 public class Startup {
