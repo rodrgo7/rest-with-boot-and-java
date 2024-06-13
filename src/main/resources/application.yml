@@ -1,13 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/restspringdb?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/restsprindb?useTimezone=true&serverTimezone=UTC
     username: root
     password: 
   jpa:
+    open-in-view: true
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+    #properties:
+      #hibernate:
+        #dialect: org.hibernate.dialect.MySQLDialect
     show-sql: false
