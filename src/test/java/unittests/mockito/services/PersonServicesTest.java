@@ -21,8 +21,6 @@ import com.oliveiradev.rest_java.repositories.PersonRepository;
 import com.oliveiradev.rest_java.services.PersonService;
 import com.oliveiradev.tests.unittests.mapper.mocks.MockPerson;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
-
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 class PersonServicesTest {
