@@ -9,4 +9,5 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: false
-  spring.profiles.active: default
+  flyway:
+    enabled: true

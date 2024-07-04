@@ -14,16 +14,25 @@
 	<name>rest-with-boot-and-java</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>18</java.version>
 		<modelmapper.version>3.2.0</modelmapper.version>
 		<!--<dozer.version>6.4.0</dozer.version>-->
 	</properties>
 	<dependencies>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.mysql</groupId>
-    		<artifactId>mysql-connector-j</artifactId>
-    		<version>8.4.0</version>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.2.0</version>
 		</dependency>
 
 		<dependency>
@@ -33,34 +42,13 @@
 
 		<dependency>
 			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-maven-plugin</artifactId>
-			<version>10.15.0</version>
+			<artifactId>flyway-mysql</artifactId>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>com.github.dozermapper</groupId>
-			<artifactId>dozer-core</artifactId>
-			<version>${dozer.version}</version>  Parametrizado
-		</dependency>-->
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
 		<dependency>
@@ -110,10 +98,11 @@
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
+				<!-- <version>8.5.4</version> -->
 				<configuration>
 					<url>jdbc:mysql://localhost:3306/restspringdb?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
 					<user>root</user>
-					<password></password>
+					<password/>
 				</configuration>
 				<dependencies>
 					<dependency>
