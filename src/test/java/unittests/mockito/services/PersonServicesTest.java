@@ -64,7 +64,7 @@ class PersonServicesTest {
     @Test
     void testFindAll() {
         List<Person> list = input.mockEntityList();
-
+        
         when(repository.findAll()).thenReturn(list);
 
         var people = service.findAll();
@@ -95,8 +95,8 @@ class PersonServicesTest {
         assertEquals("First Name Test4", personFour.getFirstName());
         assertEquals("Last Name Test4", personFour.getLastName());
         assertEquals("Male", personFour.getGender());
-
-
+        
+               
     }
 
     @Test
