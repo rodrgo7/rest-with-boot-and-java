@@ -9,3 +9,7 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: false
+spring-doc:
+    pathsToMactch: /api/**/v1/**
+    swagger-ui:
+      user-root-path: true

@@ -16,9 +16,16 @@
 	<properties>
 		<java.version>18</java.version>
 		<modelmapper.version>3.2.0</modelmapper.version>
-		<!--<dozer.version>6.4.0</dozer.version>-->
+		<dozer.version>6.4.0</dozer.version>
+		<springdoc.version>2.0.2</springdoc.version>
 	</properties>
 	<dependencies>
+
+	<dependency>
+    	<groupId>org.springdoc</groupId>
+    	<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    	<version>2.5.0</version>
+	</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -50,6 +57,13 @@
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper.version}</version>
 		</dependency>
+
+		<dependency>
+    		<groupId>com.github.dozermapper</groupId>
+    		<artifactId>dozer-core</artifactId>
+    		<version>${dozer.version}</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.hateoas</groupId>
@@ -98,7 +112,7 @@
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
-				<!-- <version>8.5.4</version> -->
+				
 				<configuration>
 					<url>jdbc:mysql://localhost:3306/restspringdb?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
 					<user>root</user>
