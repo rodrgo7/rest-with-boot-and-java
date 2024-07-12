@@ -7,9 +7,9 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.oliveiradev.rest_java.data.vo.v1.PersonVO;
-import com.oliveiradev.rest_java.mapper.DozerMapper;
-import com.oliveiradev.rest_java.models.Person;
+import com.oliveiradev.data.vo.v1.PersonVO;
+import com.oliveiradev.models.Person;
+import com.oliveiradev.mapper.DozerMapper;
 import com.oliveiradev.tests.unittests.mapper.mocks.MockPerson;
 
 public class DozerConverterTest {

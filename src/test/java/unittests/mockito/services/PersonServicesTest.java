@@ -17,11 +17,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.oliveiradev.rest_java.data.vo.v1.PersonVO;
-import com.oliveiradev.rest_java.exceptions.RequiredObjectIsNullException;
-import com.oliveiradev.rest_java.models.Person;
-import com.oliveiradev.rest_java.repositories.PersonRepository;
-import com.oliveiradev.rest_java.services.PersonService;
+import com.oliveiradev.data.vo.v1.PersonVO;
+import com.oliveiradev.exceptions.RequiredObjectIsNullException;
+import com.oliveiradev.models.Person;
+import com.oliveiradev.repositories.PersonRepository;
+import com.oliveiradev.services.PersonService;
 import com.oliveiradev.tests.unittests.mapper.mocks.MockPerson;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -95,8 +95,7 @@ class PersonServicesTest {
         assertEquals("First Name Test4", personFour.getFirstName());
         assertEquals("Last Name Test4", personFour.getLastName());
         assertEquals("Male", personFour.getGender());
-        
-               
+          
     }
 
     @Test

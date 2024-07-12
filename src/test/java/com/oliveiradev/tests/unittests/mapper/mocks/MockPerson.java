@@ -1,15 +1,13 @@
 package com.oliveiradev.tests.unittests.mapper.mocks;
 
-import com.oliveiradev.rest_java.data.vo.v1.PersonVO;
-import com.oliveiradev.rest_java.models.Person;
+import com.oliveiradev.data.vo.v1.PersonVO;
+import com.oliveiradev.models.Person;
 
 import java.util.List;
 import java.util.ArrayList;
 
 public class MockPerson {
-
-
-    public Person mockEntity() {
+     public Person mockEntity() {
         return mockEntity(0);
     }
     
@@ -52,5 +50,4 @@ public class MockPerson {
         person.setLastName("Last Name Test" + number);
         return person;
     }
-
 }
