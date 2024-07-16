@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "springdoc.swagger-ui.user-root-path",
-  "type": "java.lang.String",
-  "description": "A description for 'springdoc.swagger-ui.user-root-path'"
-}]}
+{"properties": [
+  {
+    "name": "springdoc.swagger-ui.user-root-path",
+    "type": "java.lang.String",
+    "description": "A description for 'springdoc.swagger-ui.user-root-path'"
+  },
+  {
+    "name": "cors.origin-patterns",
+    "type": "java.lang.String",
+    "description": "A description for 'cors.origin-patterns'"
+  }
+]}

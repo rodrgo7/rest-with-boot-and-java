@@ -1,3 +1,5 @@
+cors:
+  originPatterns: http://localhohost:3000,http://localhost8080,https://www.google.com
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
