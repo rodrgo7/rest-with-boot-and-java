@@ -62,7 +62,7 @@ public class BookController {
 		}
 	)
 
-	public BookVO findById(@PathVariable(value = "id") Long id) {
+	public BookVO findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
 
@@ -119,7 +119,7 @@ public class BookController {
 					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
 			}
 	)
-	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

@@ -71,7 +71,7 @@ public class PersonController {
 		}
 	)
 
-	public PersonVO findById(@PathVariable(value = "id") Long id) {
+	public PersonVO findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
 	
@@ -130,7 +130,7 @@ public class PersonController {
 		}
 	)
 	
-	public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
