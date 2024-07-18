@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+@SuppressWarnings("unused")
 @Entity
 @Table(name = "permission")
 public class Permission implements GrantedAuthority, Serializable {

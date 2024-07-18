@@ -19,6 +19,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
+@SuppressWarnings("unused")
 @Entity
 @Table (name = "users")
 public class User implements UserDetails, Serializable {
