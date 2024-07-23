@@ -1,4 +1,4 @@
-package com.oliveiradev.securityJwt;
+package com.oliveiradev.security.jwt;
 
 import java.util.Base64;
 import java.util.Date;
