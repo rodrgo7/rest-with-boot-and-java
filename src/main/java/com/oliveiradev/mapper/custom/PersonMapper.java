@@ -11,7 +11,6 @@ import com.oliveiradev.models.Person;
 public class PersonMapper {
     public PersonVOV2 convertEntityToVo(Person person) {
         PersonVOV2 vo = new PersonVOV2();
-        
         vo.setId(person.getId());
         vo.setAddress(person.getAddress());
         vo.setBirthDate(new Date());
@@ -24,7 +23,6 @@ public class PersonMapper {
 
 public Person convertVoTOEntity(PersonVOV2 person) {
         Person entity = new Person();
-
         entity.setId(person.getId());
         entity.setAddress(person.getAddress());
         entity.setFirstName(person.getFirstName());

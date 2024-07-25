@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.oliveiradev.exceptions.RequiredObjectIsNullException;
 import com.oliveiradev.exceptions.ResourceNotFoundException;
 import com.oliveiradev.exceptions.ExceptionsResponse;
-import com.oliveiradev.exceptions.InvalidJwtAuthenticationException;
 
 @ControllerAdvice
 @RestController
@@ -49,16 +48,5 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
             request.getDescription(false));
 
         return new ResponseEntity<>(exceptionsResponse, HttpStatus.BAD_REQUEST);
-    }
-
-	@ExceptionHandler(InvalidJwtAuthenticationException.class)
-    public final ResponseEntity<ExceptionsResponse> handleInvalidJwtAuthenticationExceptions(
-        Exception ex, WebRequest request) {
-        ExceptionsResponse exceptionsResponse = new ExceptionsResponse(
-            new Date(),
-            ex.getMessage(),
-            request.getDescription(false));
-
-        return new ResponseEntity<>(exceptionsResponse, HttpStatus.FORBIDDEN);
     }
 }

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({ "id", "firstName", "lastName", "address", "gender"})
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @JsonProperty("id")
@@ -73,7 +74,7 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
     }
 
     @Override
-    public boolean equals(@SuppressWarnings("null") Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (!super.equals(obj))

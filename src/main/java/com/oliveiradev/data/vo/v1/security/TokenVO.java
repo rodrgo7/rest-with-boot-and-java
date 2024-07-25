@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class TokenVO implements Serializable{
-
 	private static final long serialVersionUID = 1L;
 	
 	private String username;

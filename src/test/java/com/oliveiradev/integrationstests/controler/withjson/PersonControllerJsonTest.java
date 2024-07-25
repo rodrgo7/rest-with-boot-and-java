@@ -15,7 +15,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.oliveiradev.integrationstests.vo.PersonVO;
 import com.oliveiradev.tests.configs.TestConfigs;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;

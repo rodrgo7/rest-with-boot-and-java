@@ -1,3 +1,4 @@
+
 package com.oliveiradev.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,34 +16,49 @@ import com.oliveiradev.security.jwt.JwtTokenProvider;
 
 @Service
 public class AuthService {
-    @Autowired
-    private AuthenticationManager authManager;
+	//@Autowired - removido até resolver
+	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+	@Autowired
+	private JwtTokenProvider tokenProvider;
+	
+	@Autowired
+	private UserRepository repository;
+	
+	@SuppressWarnings("rawtypes")
+	public ResponseEntity signin(AccountCredentialsVO data) {
+		try {
+			var username = data.getUsername();
+			var password = data.getPassword();
+			authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(username, password));
+			
+			var user = repository.findByUsername(username);
+			
+			var tokenResponse = new TokenVO();
+			if (user != null) {
+				tokenResponse = tokenProvider.createAccessToken(username, user.getRoles());
+			} else {
+				throw new UsernameNotFoundException("Username " + username + " not found!");
+			}
 
-    @Autowired
-    private UserRepository repository;
+			return ResponseEntity.ok(tokenResponse);
+		} catch (Exception e) {
+			throw new BadCredentialsException("Invalid username/password supplied!");
+		}
+	}/*
+	
+	@SuppressWarnings("rawtypes")
+	public ResponseEntity refreshToken(String username, String refreshToken) {
+		var user = repository.findByUsername(username);
+		
+		var tokenResponse = new TokenVO();
+		if (user != null) {
+			tokenResponse = tokenProvider.refreshToken(refreshToken);
+		} else {
+			throw new UsernameNotFoundException("Username " + username + " not found!");
+		}
 
-    @SuppressWarnings("rawtypes")
-    public ResponseEntity signin(AccountCredentialsVO data) {
-        try {
-            var username = data.getUsername();
-            var password = data.getPassword();
-            authManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-
-            var user = repository.findByUsername(username);
-
-            var tokenResponse = new TokenVO();
-            if (user != null) {
-                tokenResponse = tokenProvider.createAcessToken(username, user.getRoles());
-            }else {
-                throw new UsernameNotFoundException("Username " + username + "not found!");
-            }
-
-            return ResponseEntity.ok(tokenResponse);
-        }catch (Exception e) {
-            throw new BadCredentialsException("Invalid username/password supplied!");
-        }
-    }
+		return ResponseEntity.ok(tokenResponse);
+	}*/
 }

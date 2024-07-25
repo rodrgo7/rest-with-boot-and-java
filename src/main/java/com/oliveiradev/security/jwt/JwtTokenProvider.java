@@ -28,8 +28,8 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.secret-key:secret}")
     private String secretKey = "secret";
 
-    @Value("${security.jwt.tokne.expire-lenght:secret}")
-    private long validityInMilliseconds = 3600000; // 1Hora
+    @Value("${security.jwt.token.expire-lenght:3600000}")
+    private long validityInMilliseconds = 3600000; // 1 Hora
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -42,20 +42,21 @@ public class JwtTokenProvider {
         algorithm = Algorithm.HMAC256(secretKey.getBytes());
     }
 
-    public TokenVO createAcessToken(String username, List<String> roles) {
+    public TokenVO createAccessToken(String username, List<String> roles) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
-        var acessToken = getAcessToken(username, roles, now, validity);
+        Date valid = new Date(now.getTime() + validityInMilliseconds);
+        var accessToken = getAccessToken(username, roles, now, valid);
         var refreshToken = getRefreshToken(username, roles, now);
-        return new TokenVO(username, true, now, validity, acessToken, refreshToken);
+        return new TokenVO(username, true, now, valid, accessToken, refreshToken);
     }
 
-    private String getAcessToken(String username, List<String> roles, Date now, Date validity) {
-        String issuerUrl = ServletUriComponentsBuilder
-            .fromCurrentContextPath().build().toUriString();
-        return JWT.create().withClaim("role", roles)
+    private String getAccessToken(String username, List<String> roles, Date now, Date valid) {
+        String issuerUrl = ServletUriComponentsBuilder.
+            fromCurrentContextPath().build().toUriString();
+        return JWT.create()
+            .withClaim("roles", roles)
             .withIssuedAt(now)
-            .withExpiresAt(validity)
+            .withExpiresAt(valid)
             .withSubject(username)
             .withIssuer(issuerUrl)
             .sign(algorithm)
@@ -63,35 +64,39 @@ public class JwtTokenProvider {
     }
 
     private String getRefreshToken(String username, List<String> roles, Date now) {
-        Date validityRefreshToken = new Date(now.getTime() + (validityInMilliseconds * 3));
-        return JWT.create().withClaim("role", roles)
-        .withIssuedAt(now)
-        .withExpiresAt(validityRefreshToken)
-        .withSubject(username)
-        .sign(algorithm)
-        .strip();
+        Date validRefreshToken = new Date(now.getTime() + (validityInMilliseconds * 3));
+        return JWT.create()
+            .withClaim("roles", roles)
+            .withIssuedAt(now)
+            .withExpiresAt(validRefreshToken)
+            .withSubject(username)
+            .sign(algorithm)
+            .strip();
     }
 
     public Authentication getAuthentication(String token) {
         DecodedJWT decodedJWT = decodedToken(token);
         UserDetails userDetails = this.userDetailsService
             .loadUserByUsername(decodedJWT.getSubject());
+
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     private DecodedJWT decodedToken(String token) {
         Algorithm alg = Algorithm.HMAC256(secretKey.getBytes());
         JWTVerifier verifier = JWT.require(alg).build();
-        DecodedJWT decodecJWT = verifier.verify(token);
-        return decodecJWT;
+        DecodedJWT decodedJWT = verifier.verify(token);
+
+        return decodedJWT;
     }
 
-    public String resolveToken (HttpServletRequest req) {
+    public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
 
-        if (bearerToken != null&& bearerToken.startsWith("Bearer")){
+        if(bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring("Bearer ".length());
         }
+
         return null;
     }
 
@@ -106,4 +111,5 @@ public class JwtTokenProvider {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT token!");
         }
     }
+    
 }
