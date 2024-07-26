@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 import com.oliveiradev.repositories.UserRepository;
 
 @Service
-public class UserService implements UserDetailsService {
-	
+public class UserService implements UserDetailsService {	
 	private Logger logger = Logger.getLogger(UserService.class.getName());
 	
 	@Autowired

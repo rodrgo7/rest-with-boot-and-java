@@ -1,4 +1,6 @@
-package com.oliveiradev.security.jwt;
+// NÃO É MAIS NECESSARIO - FOI CONFIGURADO NA CLASSE SecurityConfig
+
+/*package com.oliveiradev.security.jwt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -22,4 +24,4 @@ public class JwtConfigurer extends
 		http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	
-}
+}*/
