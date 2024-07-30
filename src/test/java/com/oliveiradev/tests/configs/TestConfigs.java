@@ -8,8 +8,8 @@ public class TestConfigs {
 
     public static final String CONTENT_JSON = "application/json";
     public static final String CONTENT_XML = "application/xml";
-    public static final String CONTENT_YML = "application/x-yaml";
+    public static final String CONTENT_YAML = "application/x-yaml";
 
     public static final String ORIGIN_GOOGLE = "https://google.com";
-    public static final String ORIGIN_YOUTUBE = "https://yotube.com";
+    public static final String ORIGIN_EMAE = "http://emae.com.br/";
 }
