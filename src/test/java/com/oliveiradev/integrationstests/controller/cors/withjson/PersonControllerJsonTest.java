@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.controller.withjson;
+package com.oliveiradev.integrationstests.controller.cors.withjson;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertNotNull;
@@ -31,7 +31,7 @@ import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
-public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
+public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	
 	private static RequestSpecification specification;
 	private static ObjectMapper objectMapper;
@@ -96,13 +96,13 @@ public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
 		
 		assertNotNull(persistedPerson);
 		
-		assertNotNull(persistedPerson.getKey());
+		assertNotNull(persistedPerson.getId());
 		assertNotNull(persistedPerson.getFirstName());
 		assertNotNull(persistedPerson.getLastName());
 		assertNotNull(persistedPerson.getAddress());
 		assertNotNull(persistedPerson.getGender());
 		
-		assertTrue(persistedPerson.getKey() > 0);
+		assertTrue(persistedPerson.getId() > 0);
 		
 		assertEquals("Richard", persistedPerson.getFirstName());
 		assertEquals("Stallman", persistedPerson.getLastName());
@@ -139,7 +139,7 @@ public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
 		var content = given().spec(specification)
 				.contentType(TestConfigs.CONTENT_JSON)
 					.header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_EMAE)
-					.pathParam("id", person.getKey())
+					.pathParam("id", person.getId())
 					.when()
 					.get("{id}")
 				.then()
@@ -153,13 +153,13 @@ public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
 		
 		assertNotNull(persistedPerson);
 		
-		assertNotNull(persistedPerson.getKey());
+		assertNotNull(persistedPerson.getId());
 		assertNotNull(persistedPerson.getFirstName());
 		assertNotNull(persistedPerson.getLastName());
 		assertNotNull(persistedPerson.getAddress());
 		assertNotNull(persistedPerson.getGender());
 		
-		assertTrue(persistedPerson.getKey() > 0);
+		assertTrue(persistedPerson.getId() > 0);
 		
 		assertEquals("Richard", persistedPerson.getFirstName());
 		assertEquals("Stallman", persistedPerson.getLastName());
@@ -176,7 +176,7 @@ public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
 		var content = given().spec(specification)
 				.contentType(TestConfigs.CONTENT_JSON)
 					.header(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_GOOGLE)
-					.pathParam("id", person.getKey())
+					.pathParam("id", person.getId())
 					.when()
 					.get("{id}")
 				.then()

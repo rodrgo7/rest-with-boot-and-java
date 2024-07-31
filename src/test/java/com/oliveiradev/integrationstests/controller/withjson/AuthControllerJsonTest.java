@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.controller.withxml;
+package com.oliveiradev.integrationstests.controller.withjson;
 
 import static io.restassured.RestAssured.given;
 
@@ -20,7 +20,7 @@ import com.oliveiradev.tests.integrations.vo.TokenVO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
-public class AuthControllerCorsXmlTest extends AbstractIntegrationTest {
+public class AuthControllerJsonTest extends AbstractIntegrationTest {
     private static TokenVO tokenVO;
 
     @Test
@@ -31,7 +31,7 @@ public class AuthControllerCorsXmlTest extends AbstractIntegrationTest {
 		tokenVO = given()
 				.basePath("/auth/signin")
 					.port(TestConfigs.SERVER_PORT)
-					.contentType(TestConfigs.CONTENT_XML)
+					.contentType(TestConfigs.CONTENT_JSON)
 				.body(user)
 					.when()
 				.post()
@@ -51,7 +51,7 @@ public class AuthControllerCorsXmlTest extends AbstractIntegrationTest {
 		var newTokenVO = given()
 				.basePath("/auth/refresh")
 					.port(TestConfigs.SERVER_PORT)
-					.contentType(TestConfigs.CONTENT_XML)
+					.contentType(TestConfigs.CONTENT_JSON)
                         .pathParam("username", tokenVO.getUsername())
                         .header(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + tokenVO.getRefreshToken())
 					.when()

@@ -16,7 +16,7 @@ public class PersonVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //@JsonProperty("id")
-    private Long key;
+    private Long Id;
     private String firstName;
     private String lastName;
     private String address;
@@ -24,12 +24,12 @@ public class PersonVO implements Serializable {
 
     public PersonVO() { }
 
-    public Long getKey() {
-        return key;
+    public Long getId() {
+        return Id;
     }
 
-    public void setKey(Long key) {
-        this.key = key;
+    public void setId(Long Id) {
+        this.Id = Id;
     }
 
     public String getFirstName() {
@@ -68,7 +68,7 @@ public class PersonVO implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
+        result = prime * result + ((Id == null) ? 0 : Id.hashCode());
         result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
@@ -85,10 +85,10 @@ public class PersonVO implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         PersonVO other = (PersonVO) obj;
-        if (key == null) {
-            if (other.key != null)
+        if (Id == null) {
+            if (other.Id != null)
                 return false;
-        } else if (!key.equals(other.key))
+        } else if (!Id.equals(other.Id))
             return false;
         if (firstName == null) {
             if (other.firstName != null)
