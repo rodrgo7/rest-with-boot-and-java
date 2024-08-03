@@ -2,6 +2,8 @@ package com.oliveiradev.tests.integrations.vo;
 
 import java.io.Serializable;
 
+import org.springframework.hateoas.RepresentationModel;
+
 //import org.springframework.hateoas.RepresentationModel;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -11,8 +13,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 //@JsonPropertyOrder({ "id", "firstName", "lastName", "address", "gender"})
 @XmlRootElement
-/*public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {*/
-public class PersonVO implements Serializable {
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
+//public class PersonVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //@JsonProperty("id")

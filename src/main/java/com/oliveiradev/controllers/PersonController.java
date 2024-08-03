@@ -17,13 +17,14 @@ import com.oliveiradev.data.vo.v1.PersonVO;
 import com.oliveiradev.data.vo.v2.PersonVOV2;
 import com.oliveiradev.services.PersonService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import util.MediaType;
 
 
 @RestController
 @RequestMapping("/api/person/v1")
-public class PersonController {
-    
+@Tag(name = "Person", description = "Endpoints for Managing People")
+public class PersonController {    
     @Autowired
     private PersonService service;
 

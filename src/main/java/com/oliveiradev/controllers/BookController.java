@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/book/v1")
-@Tag(name = "Book", description = "Endpoints for Managing People")
+@Tag(name = "Book")
 public class BookController {
 
 	@Autowired

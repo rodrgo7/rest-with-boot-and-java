@@ -20,21 +20,25 @@ public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(nullable = false, length = 280)
     private String author;
-
     @Column(name = "launc_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date launchDate;
-
     @Column(nullable = false)
     private Double price;
-
     @Column(nullable = false, length = 250)
     private String title;
 
-    public Book() { }
+    public Book() { }    
+
+    public Book(long id, String author, Date launchDate, Double price, String title) {
+        this.id = id;
+        this.author = author;
+        this.launchDate = launchDate;
+        this.price = price;
+        this.title = title;
+    }
 
     public Long getId() {
         return id;

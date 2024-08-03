@@ -10,5 +10,4 @@ class Startup {
 	void contextLoads() {
 
 	}
-
 }
