@@ -1,10 +1,9 @@
 package com.oliveiradev.integrationstests.controller.withjson;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
