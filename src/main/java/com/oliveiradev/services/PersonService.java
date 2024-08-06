@@ -26,8 +26,9 @@ public class PersonService {
     @Autowired
     PersonRepository repository;
 
-    //@Autowired
+    @Autowired
     ModelMapper mapper;
+
 
     public List<PersonVO> findAll() {
         logger.info("Finding all persons!");

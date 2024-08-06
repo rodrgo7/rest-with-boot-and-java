@@ -16,7 +16,7 @@ import com.oliveiradev.security.jwt.JwtTokenProvider;
 
 @Service
 public class AuthService {
-	//@Autowired - removido até resolver
+	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
@@ -46,7 +46,7 @@ public class AuthService {
 		} catch (Exception e) {
 			throw new BadCredentialsException("Invalid username/password supplied!");
 		}
-	}/*
+	}
 	
 	@SuppressWarnings("rawtypes")
 	public ResponseEntity refreshToken(String username, String refreshToken) {
@@ -54,11 +54,12 @@ public class AuthService {
 		
 		var tokenResponse = new TokenVO();
 		if (user != null) {
-			tokenResponse = tokenProvider.refreshToken(refreshToken);
+			//tokenResponse = tokenProvider.refreshToken(refreshToken);
+			tokenResponse = tokenResponse.getRefreshToken(refreshToken);
 		} else {
 			throw new UsernameNotFoundException("Username " + username + " not found!");
 		}
 
 		return ResponseEntity.ok(tokenResponse);
-	}*/
+	}
 }

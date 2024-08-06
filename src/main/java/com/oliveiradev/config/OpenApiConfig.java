@@ -14,7 +14,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
             .info(new Info()
-                .title("RestFull API with Java 18")
+                .title("RestFull API with Java 19")
                 .version("v1")
                 .description("API with SpringBoot")
                 .termsOfService("")

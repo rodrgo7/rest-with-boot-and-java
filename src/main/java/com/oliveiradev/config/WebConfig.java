@@ -12,7 +12,6 @@ import com.oliveiradev.serialization.converter.YamlJackson2HttpMesageConverter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-
     private static final MediaType MEDIA_TYPE_APPLICATION_YML = MediaType.valueOf("application/x-yaml");
 
     @SuppressWarnings("null")

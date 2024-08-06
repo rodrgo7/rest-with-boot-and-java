@@ -110,6 +110,5 @@ public class JwtTokenProvider {
         } catch(Exception e) {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT token!");
         }
-    }
-    
+    }    
 }

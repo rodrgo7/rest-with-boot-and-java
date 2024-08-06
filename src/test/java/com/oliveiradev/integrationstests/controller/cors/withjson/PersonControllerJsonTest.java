@@ -29,8 +29,7 @@ import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
-public class PersonControllerJsonTest extends AbstractIntegrationTest {
-	
+public class PersonControllerJsonTest extends AbstractIntegrationTest {	
 	private static RequestSpecification specification;
 	private static ObjectMapper objectMapper;
 
@@ -102,9 +101,9 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 		
 		assertTrue(persistedPerson.getId() > 0);
 		
-		assertEquals("Richard", persistedPerson.getFirstName());
-		assertEquals("Stallman", persistedPerson.getLastName());
-		assertEquals("New York City, New York, US", persistedPerson.getAddress());
+		assertEquals("Rodrigo", persistedPerson.getFirstName());
+		assertEquals("Oliveira", persistedPerson.getLastName());
+		assertEquals("Barueri - SP", persistedPerson.getAddress());
 		assertEquals("Male", persistedPerson.getGender());
 	}
 
@@ -159,9 +158,9 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 		
 		assertTrue(persistedPerson.getId() > 0);
 		
-		assertEquals("Richard", persistedPerson.getFirstName());
-		assertEquals("Stallman", persistedPerson.getLastName());
-		assertEquals("New York City, New York, US", persistedPerson.getAddress());
+		assertEquals("Rodrigo", persistedPerson.getFirstName());
+		assertEquals("Oliveira", persistedPerson.getLastName());
+		assertEquals("Barueri - SP", persistedPerson.getAddress());
 		assertEquals("Male", persistedPerson.getGender());
 	}
 	
@@ -189,9 +188,9 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	}
 	
 	private void mockPerson() {
-		person.setFirstName("Richard");
-		person.setLastName("Stallman");
-		person.setAddress("New York City, New York, US");
+		person.setFirstName("Rodrigo");
+		person.setLastName("Oliveira");
+		person.setAddress("Barueri - SP");
 		person.setGender("Male");
 	}
 }

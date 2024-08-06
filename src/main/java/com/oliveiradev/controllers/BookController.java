@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/book/v1")
-@Tag(name = "Book")
+@Tag(name = "Book", description = "Endpoints for Managing Book")
 public class BookController {
 
 	@Autowired
@@ -25,8 +25,8 @@ public class BookController {
 
 	@GetMapping(
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-	@Operation(summary = "Finds all Book", description = "Finds all Book",
-			tags = {"Book"},
+	@Operation(summary = "Finds all Books", description = "Finds all Books",
+			tags = {"Books"},
 			responses = {
 					@ApiResponse(description = "Success", responseCode = "200",
 							content = {
@@ -48,8 +48,8 @@ public class BookController {
 
 	@GetMapping(value = "/{id}",
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML  })
-	@Operation(summary = "Finds a Book", description = "Finds a Book",
-			tags = {"Book"},
+	@Operation(summary = "Finds a Books", description = "Finds a Books",
+			tags = {"Books"},
 			responses = {
 			@ApiResponse(description = "Success", responseCode = "200",
 				content = @Content(schema = @Schema(implementation = BookVO.class))
