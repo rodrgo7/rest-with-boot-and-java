@@ -54,8 +54,8 @@ public class AuthService {
 		
 		var tokenResponse = new TokenVO();
 		if (user != null) {
-			//tokenResponse = tokenProvider.refreshToken(refreshToken);
-			tokenResponse = tokenResponse.getRefreshToken(refreshToken);
+			tokenResponse = tokenProvider.refreshToken(refreshToken);
+			//tokenResponse = tokenResponse.getRefreshToken(refreshToken);
 		} else {
 			throw new UsernameNotFoundException("Username " + username + " not found!");
 		}

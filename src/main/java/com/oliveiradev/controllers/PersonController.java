@@ -16,7 +16,7 @@ import util.MediaType;
 
 @RestController
 @RequestMapping("/api/person/v1")
-@Tag(name = "Persons", description = "Endpoints for Managing People")
+@Tag(name = "Person", description = "Endpoints for Managing People")
 public class PersonController {    
     @Autowired
     private PersonService service;
@@ -28,7 +28,7 @@ public class PersonController {
     }
 
     @GetMapping(value="/{id}", produces={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-    @Operation(summary = "Find a Person", description = "Finds a Person", tags = {"Person"})
+    @Operation(summary = "Find a Person", description = "Find a Person", tags = {"Person"})
     public PersonVO findById(@PathVariable(value="id") Long id) {
         return service.findById(id);
     }
