@@ -65,7 +65,6 @@ public class PersonVO implements Serializable {
         return result;
     }
 
-    @SuppressWarnings("null")
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

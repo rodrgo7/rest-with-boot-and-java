@@ -132,9 +132,4 @@ public class TokenVO implements Serializable{
 			return false;
 		return true;
 	}
-
-    public TokenVO getRefreshToken(String refreshToken2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRefreshToken'");
-    }
 }

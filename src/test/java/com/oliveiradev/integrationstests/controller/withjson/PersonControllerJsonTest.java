@@ -93,8 +93,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 		PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
 		person = persistedPerson;
 		
-		assertNotNull(persistedPerson);
-		
+		assertNotNull(persistedPerson);		
 		assertNotNull(persistedPerson.getId());
 		assertNotNull(persistedPerson.getFirstName());
 		assertNotNull(persistedPerson.getLastName());
@@ -182,15 +181,17 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	@Test
 	@Order(4)
 	public void testDelete() throws JsonMappingException, JsonProcessingException {
+    assertNotNull(specification, "Specification should not be null");
+    
+    given().spec(specification)
+        .contentType(TestConfigs.CONTENT_JSON)
+        .pathParam("id", person.getId())
+        .when()
+        .delete("{id}")
+        .then()
+        .statusCode(204);
+}
 
-		given().spec(specification)
-			.contentType(TestConfigs.CONTENT_JSON)
-				.pathParam("id", person.getId())
-				.when()
-				.delete("{id}")
-			.then()
-				.statusCode(204);
-	}
 	
 	@Test
 	@Order(5)
