@@ -54,12 +54,25 @@ public class PersonService {
         return vo;
     }
 
-    public PersonVO create(PersonVO person) {
+    /*public PersonVO create(PersonVO person) {
         if (person == null) throw new RequiredObjectIsNullException();
         logger.info("Creating one person!");
 
         var entity = mapper.map(person, Person.class);
         var vo = mapper.map(repository.save(entity), PersonVO.class);        
+        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+        return vo;
+    }*/
+
+    public PersonVO create(PersonVO person) {
+        if (person == null) throw new RequiredObjectIsNullException();
+        logger.info("Creating one person!");
+    
+        var entity = mapper.map(person, Person.class);
+        entity = repository.save(entity); // Salva a entidade e atualiza com o ID gerado
+        logger.info("Generated ID: " + entity.getId()); // Verifica o ID gerado
+    
+        var vo = mapper.map(entity, PersonVO.class);        
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
         return vo;
     }

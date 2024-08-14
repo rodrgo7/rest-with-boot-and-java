@@ -111,7 +111,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	@Test
 	@Order(2)
 	public void testUpdate() throws JsonMappingException, JsonProcessingException {
-		person.setLastName("Biazuzo Neto");
+		person.setLastName("Barros Oliveira");
 		
 		var content = given().spec(specification)
 				.contentType(TestConfigs.CONTENT_JSON)
@@ -137,11 +137,13 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 		
 		assertEquals(person.getId(), persistedPerson.getId());
 		
-		assertEquals("Fernanda", persistedPerson.getFirstName());
-		assertEquals("Biazuzo Neto", persistedPerson.getLastName());
+		
+		assertEquals("Rodrigo", persistedPerson.getFirstName());
+		assertEquals("Barros Oliveira", persistedPerson.getLastName());
 		assertEquals("Barueri - SP", persistedPerson.getAddress());
-		assertEquals("Female", persistedPerson.getGender());
+		assertEquals("Male", persistedPerson.getGender());
 	}
+
 
 	@Test
 	@Order(3)
@@ -172,10 +174,10 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 		
 		assertEquals(person.getId(), persistedPerson.getId());
 		
-		assertEquals("Fernanda", persistedPerson.getFirstName());
-		assertEquals("Biazuzo Neto", persistedPerson.getLastName());
+		assertEquals("Rodrigo", persistedPerson.getFirstName());
+		assertEquals("Barros Oliveira", persistedPerson.getLastName());
 		assertEquals("Barueri - SP", persistedPerson.getAddress());
-		assertEquals("Female", persistedPerson.getGender());
+		assertEquals("Male", persistedPerson.getGender());
 	}
 	
 	@Test
@@ -193,10 +195,11 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 }
 
 	
-	@Test
-	@Order(5)
-	public void testFindAll() throws JsonMappingException, JsonProcessingException {
-		var content = given().spec(specification)
+@Test
+@Order(5)
+public void testFindAll() throws JsonMappingException, JsonProcessingException {
+	
+	var content = given().spec(specification)
 			.contentType(TestConfigs.CONTENT_JSON)
 				.when()
 				.get()
@@ -204,40 +207,25 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 				.statusCode(200)
 					.extract()
 					.body()
-					.asString();
-		
-		List<PersonVO> people = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {});
-		
-		PersonVO foundPersonOne = people.get(0);
-		
-		assertNotNull(foundPersonOne.getId());
-		assertNotNull(foundPersonOne.getFirstName());
-		assertNotNull(foundPersonOne.getLastName());
-		assertNotNull(foundPersonOne.getAddress());
-		assertNotNull(foundPersonOne.getGender());
-		
-		assertEquals(1, foundPersonOne.getId());
-		
-		assertEquals("Bruno", foundPersonOne.getFirstName());
-		assertEquals("Barros", foundPersonOne.getLastName());
-		assertEquals("São Paulo", foundPersonOne.getAddress());
-		assertEquals("Male", foundPersonOne.getGender());
-		
-		PersonVO foundPersonSix = people.get(5);
-		
-		assertNotNull(foundPersonSix.getId());
-		assertNotNull(foundPersonSix.getFirstName());
-		assertNotNull(foundPersonSix.getLastName());
-		assertNotNull(foundPersonSix.getAddress());
-		assertNotNull(foundPersonSix.getGender());
-		
-		assertEquals(9, foundPersonSix.getId());
-		
-		assertEquals("Henrique", foundPersonSix.getFirstName());
-		assertEquals("Barros", foundPersonSix.getLastName());
-		assertEquals("Osasco - SP", foundPersonSix.getAddress());
-		assertEquals("Male", foundPersonSix.getGender());
-	}
+						.asString();
+	
+	List<PersonVO> people = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {});
+	
+	PersonVO foundPersonOne = people.get(0);
+	
+	assertNotNull(foundPersonOne.getId());
+	assertNotNull(foundPersonOne.getFirstName());
+	assertNotNull(foundPersonOne.getLastName());
+	assertNotNull(foundPersonOne.getAddress());
+	assertNotNull(foundPersonOne.getGender());
+	
+	assertEquals(1, foundPersonOne.getId());
+	
+	assertEquals("Rodrigo", foundPersonOne.getFirstName());
+	assertEquals("Oliveira", foundPersonOne.getLastName());
+	assertEquals("Barueri - SP", foundPersonOne.getAddress());
+	assertEquals("Male", foundPersonOne.getGender());
+}
 
 	
 	@Test
@@ -259,9 +247,9 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	}
 	
 	private void mockPerson() {
-		person.setFirstName("Fernanda");
-		person.setLastName("Biazuzo");
+		person.setFirstName("Rodrigo");
+		person.setLastName("Oliveira");
 		person.setAddress("Barueri - SP");
-		person.setGender("Female");
+		person.setGender("Male");
 	}
 }

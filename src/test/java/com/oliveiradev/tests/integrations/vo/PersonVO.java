@@ -11,7 +11,7 @@ public class PersonVO implements Serializable {
     private String address;
     private String gender;
 
-    public PersonVO() { }
+    public PersonVO() {}
 
     public Long getId() {
         return Id;
@@ -56,7 +56,7 @@ public class PersonVO implements Serializable {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = super.hashCode();
+        int result = 1;
         result = prime * result + ((Id == null) ? 0 : Id.hashCode());
         result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
@@ -69,7 +69,7 @@ public class PersonVO implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (!super.equals(obj))
+        if (obj == null)
             return false;
         if (getClass() != obj.getClass())
             return false;

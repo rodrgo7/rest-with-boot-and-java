@@ -22,4 +22,4 @@ springdoc:
     - /auth/**
     - /api/**/v1/**
   swagger-ui:
-    user-root-path: true
+    use-root-path: true

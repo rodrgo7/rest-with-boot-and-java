@@ -11,5 +11,5 @@ public class TestConfigs {
     public static final String CONTENT_YAML = "application/x-yaml";
 
     public static final String ORIGIN_GOOGLE = "https://google.com";
-    public static final String ORIGIN_EMAE = "http://emae.com.br/";
+    public static final String ORIGIN_EMAE = "http://emae.com.br";
 }
