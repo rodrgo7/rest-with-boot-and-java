@@ -183,7 +183,6 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 						.extract()
 						.body()
 							.asString();
-
 		
 		assertNotNull(content);
 		assertEquals("Invalid CORS request", content);
