@@ -18,19 +18,13 @@ import com.oliveiradev.tests.configs.TestConfigs;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.TokenVO;
 
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
 import io.restassured.config.RestAssuredConfig;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
 public class AuthControllerYamlTest extends com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest {
-
 	private static YAMLMapper objectMapper;
 	private static TokenVO tokenVO;
 	
@@ -41,28 +35,16 @@ public class AuthControllerYamlTest extends com.oliveiradev.tests.integrations.t
 	
 	@Test
 	@Order(1)
-	public void testSignin() throws JsonMappingException, JsonProcessingException {
+	public void testSignin() throws JsonMappingException, JsonProcessingException {		
+		AccountCredentialsVO user = new AccountCredentialsVO("rodrigo", "admin123");
 		
-		com.oliveiradev.tests.integrations.vo.AccountCredentialsVO user = 
-				new AccountCredentialsVO("rodrigo", "admin123");
-		
-		RequestSpecification specification = new RequestSpecBuilder()
-					.addFilter(new RequestLoggingFilter(LogDetail.ALL))
-					.addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-				.build();
-		
-		tokenVO = given().spec(specification)
-				.config(
-					RestAssuredConfig
-						.config()
-						.encoderConfig(EncoderConfig.encoderConfig()
-							.encodeContentTypeAs(
-								TestConfigs.CONTENT_YAML,
-								ContentType.TEXT)))
-				.accept(TestConfigs.CONTENT_YAML)
+		tokenVO = given().config(RestAssuredConfig.config()
+					.encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(TestConfigs.CONTENT_YAML, ContentType.TEXT)))
 				.basePath("/auth/signin")
 					.port(TestConfigs.SERVER_PORT)
 					.contentType(TestConfigs.CONTENT_YAML)
+						.accept(TestConfigs.CONTENT_YAML)
+						.basePath("/auth/signin")
 				.body(user, objectMapper)
 					.when()
 				.post()
@@ -71,15 +53,14 @@ public class AuthControllerYamlTest extends com.oliveiradev.tests.integrations.t
 							.extract()
 							.body()
 								.as(TokenVO.class, objectMapper);
-		
-		assertNotNull(tokenVO.getAccessToken());
-		assertNotNull(tokenVO.getRefreshToken());
+
+        assertNotNull(tokenVO.getAccessToken());
+        assertNotNull(tokenVO.getRefreshToken());
 	}
 	
 	@Test
 	@Order(2)
-	public void testRefresh() throws JsonMappingException, JsonProcessingException {
-		
+	public void testRefresh() throws JsonMappingException, JsonProcessingException {		
 		var newTokenVO = given()
 				.config(
 					RestAssuredConfig

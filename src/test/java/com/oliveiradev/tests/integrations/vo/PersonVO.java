@@ -2,10 +2,13 @@ package com.oliveiradev.tests.integrations.vo;
 
 import java.io.Serializable;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class PersonVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long Id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String address;
@@ -14,11 +17,11 @@ public class PersonVO implements Serializable {
     public PersonVO() {}
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
-    public void setId(Long Id) {
-        this.Id = Id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -57,7 +60,7 @@ public class PersonVO implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
@@ -74,10 +77,10 @@ public class PersonVO implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         PersonVO other = (PersonVO) obj;
-        if (Id == null) {
-            if (other.Id != null)
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!Id.equals(other.Id))
+        } else if (!id.equals(other.id))
             return false;
         if (firstName == null) {
             if (other.firstName != null)

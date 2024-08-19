@@ -34,7 +34,7 @@ public class PersonController {
     }
 
     @PostMapping(
-        consumes={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML }, 
+        consumes={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML }, 
         produces={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
     @Operation(summary = "Adds a new Person",
 			description = "Adds a new Person by passing in a JSON, XML or YML representation of the person!", tags = {"Person"})
@@ -43,7 +43,7 @@ public class PersonController {
     }
 
     @PostMapping(value="/v2", 
-        consumes={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML }, 
+        consumes={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML }, 
         produces={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
     @Operation(summary = "Adds a new Person v2",
 			description = "Adds a new Person with birthday and passing in a JSON, XML or YML representation of the person!", tags = {"Person v2"})
@@ -52,7 +52,7 @@ public class PersonController {
     }
 
     @PutMapping(
-        consumes={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML }, 
+        consumes={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML }, 
         produces={ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
     @Operation(summary = "Updates a Person",
 			description = "Updates a Person by passing in a JSON, XML or YML representation of the person!",
