@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +19,7 @@ import com.oliveiradev.exceptions.ResourceNotFoundException;
 import com.oliveiradev.models.Person;
 import com.oliveiradev.repositories.PersonRepository;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import jakarta.transaction.Transactional;
 
 @Service
 public class PersonService {
@@ -28,7 +30,6 @@ public class PersonService {
 
     @Autowired
     ModelMapper mapper;
-
 
     public List<PersonVO> findAll() {
         logger.info("Finding all persons!");
@@ -54,23 +55,13 @@ public class PersonService {
         return vo;
     }
 
-    /*public PersonVO create(PersonVO person) {
-        if (person == null) throw new RequiredObjectIsNullException();
-        logger.info("Creating one person!");
-
-        var entity = mapper.map(person, Person.class);
-        var vo = mapper.map(repository.save(entity), PersonVO.class);        
-        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
-        return vo;
-    }*/
-
     public PersonVO create(PersonVO person) {
         if (person == null) throw new RequiredObjectIsNullException();
         logger.info("Creating one person!");
     
         var entity = mapper.map(person, Person.class);
-        entity = repository.save(entity); // Salva a entidade e atualiza com o ID gerado
-        logger.info("Generated ID: " + entity.getId()); // Verifica o ID gerado
+        entity = repository.save(entity); 
+        logger.info("Generated ID: " + entity.getId());
     
         var vo = mapper.map(entity, PersonVO.class);        
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
@@ -80,6 +71,7 @@ public class PersonService {
     public PersonVOV2 createV2(PersonVOV2 person) {
         if (person == null) throw new RequiredObjectIsNullException();
         logger.info("Creating one person with V2!");
+        
         var entity = mapper.map(person, Person.class);
         var vo = mapper.map(repository.save(entity), PersonVOV2.class);
         return vo;
@@ -99,6 +91,19 @@ public class PersonService {
 
         var vo = mapper.map(repository.save(entity), PersonVO.class);        
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+        return vo;
+    }
+
+    @Transactional
+    public PersonVO disabledPerson(Long id) {
+        logger.info("Finding one person");
+        
+        repository.disablePerson(id);
+        
+        var entity = repository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+        var vo = mapper.map(entity, PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
         return vo;
     }
 

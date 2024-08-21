@@ -23,7 +23,6 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import com.oliveiradev.tests.configs.TestConfigs;
 import com.oliveiradev.data.vo.v1.security.TokenVO;
-import com.oliveiradev.integrationstests.controller.withyaml.mapper.YAMLMapper;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.BookVO;

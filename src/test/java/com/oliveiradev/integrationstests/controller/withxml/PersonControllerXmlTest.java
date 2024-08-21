@@ -127,26 +127,57 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
 		person = persistedPerson;
 		
-		assertNotNull(persistedPerson);
-		
+		assertNotNull(persistedPerson);		
 		assertNotNull(persistedPerson.getId());
 		assertNotNull(persistedPerson.getFirstName());
 		assertNotNull(persistedPerson.getLastName());
 		assertNotNull(persistedPerson.getAddress());
 		assertNotNull(persistedPerson.getGender());
 		
-		assertEquals(person.getId(), persistedPerson.getId());
-		
-		
+		assertEquals(person.getId(), persistedPerson.getId());		
 		assertEquals("Rodrigo", persistedPerson.getFirstName());
 		assertEquals("Barros Oliveira", persistedPerson.getLastName());
 		assertEquals("Barueri - SP", persistedPerson.getAddress());
 		assertEquals("Male", persistedPerson.getGender());
 	}
 
-
 	@Test
 	@Order(3)
+	public void testDisablePersonById() throws JsonMappingException, JsonProcessingException {
+			
+		var content = given().spec(specification)
+				.contentType(TestConfigs.CONTENT_XML)
+				.accept(TestConfigs.CONTENT_XML)
+					.pathParam("id", person.getId())
+					.when()
+					.patch("{id}")
+				.then()
+					.statusCode(200)
+						.extract()
+						.body()
+							.asString();
+		
+		PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
+		person = persistedPerson;
+		
+		assertNotNull(persistedPerson);		
+		assertNotNull(persistedPerson.getId());
+		assertNotNull(persistedPerson.getFirstName());
+		assertNotNull(persistedPerson.getLastName());
+		assertNotNull(persistedPerson.getAddress());
+		assertNotNull(persistedPerson.getGender());
+
+		assertFalse(persistedPerson.getEnabled());
+
+		assertEquals(person.getId(), persistedPerson.getId());		
+		assertEquals("Nelson", persistedPerson.getFirstName());
+		assertEquals("Piquet Souto Maior", persistedPerson.getLastName());
+		assertEquals("Brasília - DF - Brasil", persistedPerson.getAddress());
+		assertEquals("Male", persistedPerson.getGender());
+	}
+
+	@Test
+	@Order(4)
 	public void testFindById() throws JsonMappingException, JsonProcessingException {
 		mockPerson();
 			
@@ -172,8 +203,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		assertNotNull(persistedPerson.getAddress());
 		assertNotNull(persistedPerson.getGender());
 		
-		assertEquals(person.getId(), persistedPerson.getId());
-		
+		assertEquals(person.getId(), persistedPerson.getId());		
 		assertEquals("Rodrigo", persistedPerson.getFirstName());
 		assertEquals("Barros Oliveira", persistedPerson.getLastName());
 		assertEquals("Barueri - SP", persistedPerson.getAddress());
@@ -181,7 +211,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	}
 	
 	@Test
-	@Order(4)
+	@Order(5)
 	public void testDelete() throws JsonMappingException, JsonProcessingException {
     assertNotNull(specification, "Specification should not be null");
     
@@ -193,12 +223,10 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
         .then()
         .statusCode(204);
 }
-
 	
-@Test
-@Order(5)
-public void testFindAll() throws JsonMappingException, JsonProcessingException {
-	
+	@Test
+	@Order(6)
+	public void testFindAll() throws JsonMappingException, JsonProcessingException {	
 	var content = given().spec(specification)
 			.contentType(TestConfigs.CONTENT_XML)
 				.when()
@@ -219,17 +247,15 @@ public void testFindAll() throws JsonMappingException, JsonProcessingException {
 	assertNotNull(foundPersonOne.getAddress());
 	assertNotNull(foundPersonOne.getGender());
 	
-	assertEquals(1, foundPersonOne.getId());
-	
+	assertEquals(1, foundPersonOne.getId());	
 	assertEquals("Rodrigo", foundPersonOne.getFirstName());
 	assertEquals("Oliveira", foundPersonOne.getLastName());
 	assertEquals("Barueri - SP", foundPersonOne.getAddress());
 	assertEquals("Male", foundPersonOne.getGender());
 }
-
 	
 	@Test
-	@Order(6)
+	@Order(7)
 	public void testFindAllWithoutToken() throws JsonMappingException, JsonProcessingException {
 		RequestSpecification specificationWithoutToken = new RequestSpecBuilder()
 			.setBasePath("/api/person/v1")

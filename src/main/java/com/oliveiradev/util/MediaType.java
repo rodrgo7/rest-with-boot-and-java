@@ -1,4 +1,4 @@
-package util;
+package com.oliveiradev.util;
 
 public class MediaType {
     

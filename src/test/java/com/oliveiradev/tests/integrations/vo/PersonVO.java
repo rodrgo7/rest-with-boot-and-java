@@ -13,6 +13,7 @@ public class PersonVO implements Serializable {
     private String lastName;
     private String address;
     private String gender;
+    private Boolean enabled;
 
     public PersonVO() {}
 
@@ -56,6 +57,14 @@ public class PersonVO implements Serializable {
         this.gender = gender;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -65,6 +74,7 @@ public class PersonVO implements Serializable {
         result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+        result = prime * result + ((enabled == null) ? 0 : enabled.hashCode());
         return result;
     }
 
@@ -102,6 +112,13 @@ public class PersonVO implements Serializable {
                 return false;
         } else if (!gender.equals(other.gender))
             return false;
+        if (enabled == null) {
+            if (other.enabled != null)
+                return false;
+        } else if (!enabled.equals(other.enabled))
+            return false;
         return true;
     }
+
+    
 }
