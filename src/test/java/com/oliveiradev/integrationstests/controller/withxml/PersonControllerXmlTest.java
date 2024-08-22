@@ -25,9 +25,12 @@ import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.PersonVO;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.config.EncoderConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -141,10 +144,9 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		assertEquals("Male", persistedPerson.getGender());
 	}
 
-	@Test
+	/*@Test
 	@Order(3)
 	public void testDisablePersonById() throws JsonMappingException, JsonProcessingException {
-			
 		var content = given().spec(specification)
 				.contentType(TestConfigs.CONTENT_XML)
 				.accept(TestConfigs.CONTENT_XML)
@@ -170,9 +172,42 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		assertFalse(persistedPerson.getEnabled());
 
 		assertEquals(person.getId(), persistedPerson.getId());		
-		assertEquals("Nelson", persistedPerson.getFirstName());
-		assertEquals("Piquet Souto Maior", persistedPerson.getLastName());
-		assertEquals("Brasília - DF - Brasil", persistedPerson.getAddress());
+		assertEquals("Rodrigo", persistedPerson.getFirstName());
+		assertEquals("Barros Oliveira", persistedPerson.getLastName());
+		assertEquals("Barueri - SP", persistedPerson.getAddress());
+		assertEquals("Male", persistedPerson.getGender());
+	}*/
+
+	@Test
+	@Order(3)
+	public void testDisablePersonById() throws JsonMappingException, JsonProcessingException {			
+		var content = given().spec(specification)
+				.contentType(TestConfigs.CONTENT_XML)
+					.pathParam("id", person.getId())
+					.when()
+					.patch("{id}")
+				.then()
+					.statusCode(200)
+						.extract()
+						.body()
+							.asString();
+						
+		PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
+		person = persistedPerson;
+		
+		assertNotNull(persistedPerson);		
+		assertNotNull(persistedPerson.getId());
+		assertNotNull(persistedPerson.getFirstName());
+		assertNotNull(persistedPerson.getLastName());
+		assertNotNull(persistedPerson.getAddress());
+		assertNotNull(persistedPerson.getGender());
+
+		assertFalse(persistedPerson.getEnabled());
+
+		assertEquals(person.getId(), persistedPerson.getId());		
+		assertEquals("Rodrigo", persistedPerson.getFirstName());
+		assertEquals("Barros Oliveira", persistedPerson.getLastName());
+		assertEquals("Barueri - SP", persistedPerson.getAddress());
 		assertEquals("Male", persistedPerson.getGender());
 	}
 
@@ -277,5 +312,6 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		person.setLastName("Oliveira");
 		person.setAddress("Barueri - SP");
 		person.setGender("Male");
+		person.setEnabled(true);
 	}
 }

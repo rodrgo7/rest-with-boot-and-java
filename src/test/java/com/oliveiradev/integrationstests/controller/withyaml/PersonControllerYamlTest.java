@@ -1,6 +1,7 @@
 package com.oliveiradev.integrationstests.controller.withyaml;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -198,7 +199,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 		assertNotNull(persistedPerson.getAddress());
 		assertNotNull(persistedPerson.getGender());
 
-		assertTrue(persistedPerson.getEnabled());
+		assertFalse(persistedPerson.getEnabled());
 
 		assertEquals(person.getId(), persistedPerson.getId());		
 		assertEquals("Rodrigo", persistedPerson.getFirstName());
@@ -250,7 +251,6 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	@Test
 	@Order(5)
 	public void testDelete() throws JsonMappingException, JsonProcessingException {
-
 		given().spec(specification)
 			.config(
 				RestAssuredConfig
@@ -270,8 +270,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	
 	@Test
 	@Order(6)
-	public void testFindAll() throws JsonMappingException, JsonProcessingException {
-		
+	public void testFindAll() throws JsonMappingException, JsonProcessingException {		
 		var content = given().spec(specification)
 				.config(
 						RestAssuredConfig
@@ -338,5 +337,6 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 		person.setLastName("Oliveira");
 		person.setAddress("Barueri - SP");
 		person.setGender("Male");
+		person.setEnabled(true);
 	}
 }

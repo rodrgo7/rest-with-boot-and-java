@@ -149,17 +149,16 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	@Test
 	@Order(3)
 	public void testDisablePersonById() throws JsonMappingException, JsonProcessingException {
-			
 		var content = given().spec(specification)
-				.contentType(TestConfigs.CONTENT_JSON)
-					.pathParam("id", person.getId())
-					.when()
-					.patch("{id}")
-				.then()
-					.statusCode(200)
-						.extract()
-						.body()
-							.asString();
+			.contentType(TestConfigs.CONTENT_JSON)
+				.pathParam("id", person.getId())
+				.when()
+				.patch("{id}")
+			.then()
+				.statusCode(200)
+					.extract()
+					.body()
+				.asString();
 		
 		PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
 		person = persistedPerson;
