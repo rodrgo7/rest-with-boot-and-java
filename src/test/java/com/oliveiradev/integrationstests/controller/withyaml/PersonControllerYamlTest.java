@@ -25,6 +25,7 @@ import com.oliveiradev.integrationstests.controller.withyaml.mapper.YAMLMapper;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.PersonVO;
+import com.oliveiradev.tests.integrations.vo.wrappers.WrapperPersonVO;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
@@ -271,7 +272,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 	@Test
 	@Order(6)
 	public void testFindAll() throws JsonMappingException, JsonProcessingException {		
-		var content = given().spec(specification)
+		var wrapper = given().spec(specification)
 				.config(
 						RestAssuredConfig
 							.config()
@@ -287,9 +288,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 					.statusCode(200)
 						.extract()
 						.body()
-						.as(PersonVO[].class, objectMapper);
-		
-		List<PersonVO> people = Arrays.asList(content);
+						.as(WrapperPersonVO.class, objectMapper);
+
+		var people = wrapper.getEmbedded().getPersons();
 		
 		PersonVO foundPersonOne = people.get(0);
 		

@@ -23,6 +23,7 @@ import com.oliveiradev.data.vo.v1.security.TokenVO;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.PersonVO;
+import com.oliveiradev.tests.integrations.vo.wrappers.WrapperPersonVO;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -269,7 +270,8 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 					.body()
 						.asString();
 	
-	List<PersonVO> people = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {});
+	WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
+	var people = wrapper.getEmbedded().getPersons();
 	
 	PersonVO foundPersonOne = people.get(0);
 	

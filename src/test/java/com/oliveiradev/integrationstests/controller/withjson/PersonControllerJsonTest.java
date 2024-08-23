@@ -3,8 +3,6 @@ package com.oliveiradev.integrationstests.controller.withjson;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -13,7 +11,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +20,7 @@ import com.oliveiradev.data.vo.v1.security.TokenVO;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.PersonVO;
+import com.oliveiradev.tests.integrations.vo.wrappers.WrapperPersonVO;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -232,10 +230,10 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 	
 @Test
 @Order(6)
-public void testFindAll() throws JsonMappingException, JsonProcessingException {
-	
+public void testFindAll() throws JsonMappingException, JsonProcessingException {	
 	var content = given().spec(specification)
 			.contentType(TestConfigs.CONTENT_JSON)
+			.queryParam("page", 3, "size", 10, "direction", "asc")
 				.when()
 				.get()
 			.then()
@@ -244,7 +242,8 @@ public void testFindAll() throws JsonMappingException, JsonProcessingException {
 					.body()
 						.asString();
 	
-	List<PersonVO> people = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {});
+	WrapperPersonVO wrapper = objectMapper.readValue(content, WrapperPersonVO.class);
+	var people = wrapper.getEmbedded().getPersons();
 	
 	PersonVO foundPersonOne = people.get(0);
 	
@@ -254,12 +253,12 @@ public void testFindAll() throws JsonMappingException, JsonProcessingException {
 	assertNotNull(foundPersonOne.getAddress());
 	assertNotNull(foundPersonOne.getGender());
 	
-	assertEquals(1, foundPersonOne.getId());
+	assertEquals(275, foundPersonOne.getId());
 	
-	assertEquals("Rodrigo", foundPersonOne.getFirstName());
-	assertEquals("Oliveira", foundPersonOne.getLastName());
-	assertEquals("Barueri - SP", foundPersonOne.getAddress());
-	assertEquals("Male", foundPersonOne.getGender());
+	assertEquals("Alyse", foundPersonOne.getFirstName());
+	assertEquals("Saxelby", foundPersonOne.getLastName());
+	assertEquals("91 Bunker Hill Drive", foundPersonOne.getAddress());
+	assertEquals("Female", foundPersonOne.getGender());
 }
 
 	@Test
