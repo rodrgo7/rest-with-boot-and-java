@@ -25,12 +25,9 @@ import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.PersonVO;
 
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.config.EncoderConfig;
-import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)

@@ -40,17 +40,26 @@ public class PersonService {
     public PagedModel<EntityModel<PersonVO>> findAll(Pageable pageable) {
         logger.info("Finding all persons!");
 
-        /*List<Person> persons = repository.findAll();
-        List<PersonVO> personVOs = persons.stream()
-            .map(person -> {
-                PersonVO vo = mapper.map(person, PersonVO.class);
-                vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
-                return vo;
-            })
-            .collect(Collectors.toList());
-        return personVOs;*/
-
         var personPage = repository.findAll(pageable);
+        var personVosPage = personPage.map(p -> mapper.map(p, PersonVO.class));
+
+        personVosPage.map(
+            p -> p.add(
+                linkTo(methodOn(PersonController.class)
+            .findById(p.getKey())).withSelfRel()));
+        
+            Link link = linkTo(
+                methodOn(PersonController.class).findAll(
+                    pageable.getPageNumber(),
+                    pageable.getPageSize(),
+                    "asc")).withSelfRel();
+            return assembler.toModel(personVosPage, link);
+    }
+
+    public PagedModel<EntityModel<PersonVO>> findPersonsByNames(String firstName, Pageable pageable) {
+        logger.info("Finding all persons!");
+        
+        var personPage = repository.findPersonsByNames(firstName, pageable);
         var personVosPage = personPage.map(p -> mapper.map(p, PersonVO.class));
 
         personVosPage.map(
@@ -135,4 +144,5 @@ public class PersonService {
             .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         repository.delete(entity);
     }
+
 }

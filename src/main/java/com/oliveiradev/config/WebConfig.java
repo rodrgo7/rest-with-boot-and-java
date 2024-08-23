@@ -20,12 +20,12 @@ public class WebConfig implements WebMvcConfigurer {
 	private String corsOriginPatterns = "";
 
     @Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+    public void extendMessageConverters(@SuppressWarnings("null") List<HttpMessageConverter<?>> converters) {
         converters.add(new YamlJackson2HttpMesageConverter());
     }
 
     @Override
-	public void addCorsMappings(CorsRegistry registry) {
+	public void addCorsMappings(@SuppressWarnings("null") CorsRegistry registry) {
 		var allowedOrigins = corsOriginPatterns.split(",");
 		registry.addMapping("/**")
 			//.allowedMethods("GET", "POST", "PUT")
@@ -35,7 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
 	}
 
     @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+    public void configureContentNegotiation(@SuppressWarnings("null") ContentNegotiationConfigurer configurer) {
         
         // via QUERY PARAM.
         /*
