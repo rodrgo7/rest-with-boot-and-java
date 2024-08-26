@@ -25,6 +25,7 @@ import com.oliveiradev.integrationstests.controller.withyaml.mapper.YAMLMapper;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.PersonVO;
+import com.oliveiradev.tests.integrations.vo.pagedmodels.PagedModelPerson;
 import com.oliveiradev.tests.integrations.vo.wrappers.WrapperPersonVO;
 
 import io.restassured.builder.RequestSpecBuilder;
@@ -281,6 +282,7 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 									TestConfigs.CONTENT_YAML,
 									ContentType.TEXT)))
 				.contentType(TestConfigs.CONTENT_YAML)
+				.queryParam("page", 3, "size", 10, "direction", "asc")
 				.accept(TestConfigs.CONTENT_YAML)
 					.when()
 					.get()
@@ -288,9 +290,9 @@ public class PersonControllerYamlTest extends AbstractIntegrationTest {
 					.statusCode(200)
 						.extract()
 						.body()
-						.as(WrapperPersonVO.class, objectMapper);
+						.as(PagedModelPerson.class, objectMapper);
 
-		var people = wrapper.getEmbedded().getPersons();
+		var people = wrapper.getContent();
 		
 		PersonVO foundPersonOne = people.get(0);
 		

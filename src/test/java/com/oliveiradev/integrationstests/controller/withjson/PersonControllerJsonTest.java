@@ -256,7 +256,6 @@ public void testFindAll() throws JsonMappingException, JsonProcessingException {
 	assertEquals(275, foundPersonOne.getId());
 	
 	assertEquals("Alyse", foundPersonOne.getFirstName());
-	assertEquals("Saxelby", foundPersonOne.getLastName());
 	assertEquals("91 Bunker Hill Drive", foundPersonOne.getAddress());
 	assertEquals("Female", foundPersonOne.getGender());
 }

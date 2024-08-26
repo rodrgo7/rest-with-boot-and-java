@@ -3,8 +3,6 @@ package com.oliveiradev.integrationstests.controller.withxml;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -13,7 +11,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -281,10 +278,10 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	assertNotNull(foundPersonOne.getAddress());
 	assertNotNull(foundPersonOne.getGender());
 	
-	assertEquals(1, foundPersonOne.getId());	
-	assertEquals("Rodrigo", foundPersonOne.getFirstName());
-	assertEquals("Oliveira", foundPersonOne.getLastName());
-	assertEquals("Barueri - SP", foundPersonOne.getAddress());
+	assertEquals(74, foundPersonOne.getId());	
+	assertEquals("Ab", foundPersonOne.getFirstName());
+	assertEquals("Debow", foundPersonOne.getLastName());
+	assertEquals("139 Eagan Hill", foundPersonOne.getAddress());
 	assertEquals("Male", foundPersonOne.getGender());
 }
 	

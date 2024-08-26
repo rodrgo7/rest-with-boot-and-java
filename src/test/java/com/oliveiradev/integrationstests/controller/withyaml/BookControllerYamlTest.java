@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +25,7 @@ import com.oliveiradev.integrationstests.controller.withyaml.mapper.YAMLMapper;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.BookVO;
+import com.oliveiradev.tests.integrations.vo.pagedmodels.PagedModelBook;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
@@ -92,8 +92,7 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
       
     @Test
     @Order(2)
-    public void testCreate() throws JsonMappingException, JsonProcessingException {
-        
+    public void testCreate() throws JsonMappingException, JsonProcessingException {        
         mockBook();
 
         book = given()
@@ -118,7 +117,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
         assertNotNull(book.getTitle());
         assertNotNull(book.getAuthor());
         assertNotNull(book.getPrice());
+
         assertTrue(book.getId() > 0);
+
         assertEquals("Docker Deep Dive", book.getTitle());
         assertEquals("Nigel Poulton", book.getAuthor());
         assertEquals(55.99, book.getPrice());
@@ -126,8 +127,7 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
       
     @Test
     @Order(3)
-    public void testUpdate() throws JsonMappingException, JsonProcessingException {
-        
+    public void testUpdate() throws JsonMappingException, JsonProcessingException {        
         book.setTitle("Docker Deep Dive - Updated");
 
         BookVO bookUpdated = given()
@@ -152,6 +152,7 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
         assertNotNull(bookUpdated.getTitle());
         assertNotNull(bookUpdated.getAuthor());
         assertNotNull(bookUpdated.getPrice());
+
         assertEquals(bookUpdated.getId(), book.getId());
         assertEquals("Docker Deep Dive - Updated", bookUpdated.getTitle());
         assertEquals("Nigel Poulton", bookUpdated.getAuthor());
@@ -183,6 +184,7 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
         assertNotNull(foundBook.getTitle());
         assertNotNull(foundBook.getAuthor());
         assertNotNull(foundBook.getPrice());
+
         assertEquals(foundBook.getId(), book.getId());
         assertEquals("Docker Deep Dive - Updated", foundBook.getTitle());
         assertEquals("Nigel Poulton", foundBook.getAuthor());
@@ -220,16 +222,17 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
                     .spec(specification)
                 .contentType(TestConfigs.CONTENT_YAML)
 				.accept(TestConfigs.CONTENT_YAML)
+                .queryParams("page", 0 , "limit", 12, "direction", "asc")
                     .when()
                     .get()
                 .then()
                     .statusCode(200)
                         .extract()
                         .body()
-                        .as(BookVO[].class, objectMapper); 
+                        .as(PagedModelBook.class, objectMapper);
 
 
-        List<BookVO> content = Arrays.asList(response);
+        List<BookVO> content = response.getContent();
 
         BookVO foundBookOne = content.get(0);
         
@@ -237,7 +240,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
         assertNotNull(foundBookOne.getTitle());
         assertNotNull(foundBookOne.getAuthor());
         assertNotNull(foundBookOne.getPrice());
+
         assertTrue(foundBookOne.getId() > 0);
+
         assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
         assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
         assertEquals(49.00, foundBookOne.getPrice());
@@ -248,11 +253,48 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
         assertNotNull(foundBookFive.getTitle());
         assertNotNull(foundBookFive.getAuthor());
         assertNotNull(foundBookFive.getPrice());
+
         assertTrue(foundBookFive.getId() > 0);
+
         assertEquals("Code complete", foundBookFive.getTitle());
         assertEquals("Steve McConnell", foundBookFive.getAuthor());
         assertEquals(58.0, foundBookFive.getPrice());
     }
+
+    @Test
+	@Order(7)
+	public void testHATEOAS() throws JsonMappingException, JsonProcessingException {		
+		var unthreatedContent = given()
+                    .config(
+                        RestAssuredConfig
+                            .config()
+                            .encoderConfig(EncoderConfig.encoderConfig()
+                                    .encodeContentTypeAs(TestConfigs.CONTENT_YAML, ContentType.TEXT)))
+                    .spec(specification)
+                .contentType(TestConfigs.CONTENT_YAML)
+				.accept(TestConfigs.CONTENT_YAML)
+            	.queryParams("page", 0 , "size", 12, "direction", "asc")
+                    .when()
+                    .get()
+                .then()
+                    .statusCode(200)
+                .extract()
+                    .body()
+						.asString();
+		
+		var content = unthreatedContent.replace("\n", "").replace("\r", "");
+		
+		assertTrue(content.contains("rel: \"self\"    href: \"http://localhost:8888/api/book/v1/3\""));
+		assertTrue(content.contains("rel: \"self\"    href: \"http://localhost:8888/api/book/v1/5\""));
+		assertTrue(content.contains("rel: \"self\"    href: \"http://localhost:8888/api/book/v1/7\""));
+		
+		assertTrue(content.contains("rel: \"first\"  href: \"http://localhost:8888/api/book/v1?direction=asc&page=0&size=12&sort=title,asc\""));
+		assertTrue(content.contains("rel: \"self\"  href: \"http://localhost:8888/api/book/v1?page=0&size=12&direction=asc\""));
+		assertTrue(content.contains("rel: \"next\"  href: \"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc\""));
+		assertTrue(content.contains("rel: \"last\"  href: \"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc\""));
+		
+		assertTrue(content.contains("page:  size: 12  totalElements: 15  totalPages: 2  number: 0"));
+	}
      
     private void mockBook() {
         book.setTitle("Docker Deep Dive");
