@@ -1,4 +1,4 @@
-package com.oliveiradev.unittests.mockito.services;
+package com.oliveiradev.tests.unittests.mockito.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -21,7 +21,7 @@ import com.oliveiradev.data.vo.v1.BookVO;
 import com.oliveiradev.models.Book;
 import com.oliveiradev.repositories.BookRepository;
 import com.oliveiradev.services.BookService;
-import com.oliveiradev.unittests.mapper.mocks.MockBook;
+import com.oliveiradev.tests.unittests.mapper.mocks.MockBook;
 
 @TestInstance(Lifecycle.PER_CLASS)
 class BookServicesTest {
@@ -72,6 +72,7 @@ class BookServicesTest {
 	    BookVO vo = input.mockVO(1);
 	    vo.setKey(1L);
     
+    // Corrigindo a ordem dos mocks para garantir que o mapeamento e salvamento estão corretos
 	    when(mapper.map(vo, Book.class)).thenReturn(entity);
 	    when(repository.save(any(Book.class))).thenReturn(persisted);
 	    when(mapper.map(persisted, BookVO.class)).thenReturn(vo);

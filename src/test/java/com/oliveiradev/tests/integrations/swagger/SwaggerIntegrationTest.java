@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.swagger;
+package com.oliveiradev.tests.integrations.swagger;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.oliveiradev.Startup;
-import com.oliveiradev.configs.TestConfigs;
-import com.oliveiradev.integrationstests.testcontainers.AbstractIntegrationTest;
+import com.oliveiradev.Startup; // Certifique-se de que esta é a classe correta
+import com.oliveiradev.tests.configs.TestConfigs;
+import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
-    classes = Startup.class)
+    classes = Startup.class) // Use a classe principal Startup
 public class SwaggerIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void shouldDisplaySwaggerUiPage() {

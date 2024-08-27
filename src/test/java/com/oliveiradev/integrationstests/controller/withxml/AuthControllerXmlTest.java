@@ -12,10 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.oliveiradev.configs.TestConfigs;
-import com.oliveiradev.integrationstests.testcontainers.AbstractIntegrationTest;
-import com.oliveiradev.integrationstests.vo.AccountCredentialsVO;
-import com.oliveiradev.integrationstests.vo.TokenVO;
+import com.oliveiradev.tests.configs.TestConfigs;
+import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
+import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
+import com.oliveiradev.tests.integrations.vo.TokenVO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)

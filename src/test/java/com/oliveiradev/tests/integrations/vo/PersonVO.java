@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.vo;
+package com.oliveiradev.tests.integrations.vo;
 
 import java.io.Serializable;
 

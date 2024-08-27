@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.vo.wrappers;
+package com.oliveiradev.tests.integrations.vo.wrappers;
 
 import java.io.Serializable;
 

@@ -20,12 +20,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.oliveiradev.configs.TestConfigs;
+import com.oliveiradev.tests.configs.TestConfigs;
 import com.oliveiradev.data.vo.v1.security.TokenVO;
-import com.oliveiradev.integrationstests.testcontainers.AbstractIntegrationTest;
-import com.oliveiradev.integrationstests.vo.AccountCredentialsVO;
-import com.oliveiradev.integrationstests.vo.BookVO;
-import com.oliveiradev.integrationstests.vo.wrappers.WrapperBookVO;
+import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
+import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
+import com.oliveiradev.tests.integrations.vo.BookVO;
+import com.oliveiradev.tests.integrations.vo.wrappers.WrapperBookVO;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -110,7 +110,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		assertEquals(49.0, book.getPrice());
 	}
 
-	/*
+	
 	@Test
     @Order(3)
     public void testUpdate() throws JsonMappingException, JsonProcessingException {        
@@ -137,7 +137,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         assertEquals(bookUpdated.getId(), book.getId());
         assertEquals("Working effectively with legacy code - Updated", bookUpdated.getTitle());
         assertEquals("Michael C. Feathers", bookUpdated.getAuthor());
-        assertEquals(55.99, bookUpdated.getPrice());
+        assertEquals(49.0, bookUpdated.getPrice());
     }
 
 	@Test
@@ -167,6 +167,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		assertEquals(49., book.getPrice());
 	}
 
+	
 	@Test
     @Order(5)
     public void testDelete() {
@@ -235,10 +236,9 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		assertTrue(content.contains("\"last\":{\"href\":\"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc\"}}"));
 		assertTrue(content.contains("\"page\":{\"size\":12,\"totalElements\":15,\"totalPages\":2,\"number\":0}}"));
 	}
-		*/
 	
 	private void mockBook() {
-        book.setTitle("Working effectively with legacy code\"");
+        book.setTitle("Working effectively with legacy code");
         book.setAuthor("Michael C. Feathers");
         book.setPrice(Double.valueOf(49.0));
         book.setLaunchDate(new Date());

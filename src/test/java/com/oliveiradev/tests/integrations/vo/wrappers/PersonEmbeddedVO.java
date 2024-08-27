@@ -1,10 +1,10 @@
-package com.oliveiradev.integrationstests.vo.wrappers;
+package com.oliveiradev.tests.integrations.vo.wrappers;
 
 import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.oliveiradev.integrationstests.vo.PersonVO;
+import com.oliveiradev.tests.integrations.vo.PersonVO;
 
 public class PersonEmbeddedVO implements Serializable {
     private static final long serialVersionUID = 1L;

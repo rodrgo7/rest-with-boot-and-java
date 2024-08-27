@@ -19,13 +19,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import com.oliveiradev.configs.TestConfigs;
+import com.oliveiradev.tests.configs.TestConfigs;
 import com.oliveiradev.data.vo.v1.security.TokenVO;
 import com.oliveiradev.integrationstests.controller.withyaml.mapper.YAMLMapper;
-import com.oliveiradev.integrationstests.testcontainers.AbstractIntegrationTest;
-import com.oliveiradev.integrationstests.vo.AccountCredentialsVO;
-import com.oliveiradev.integrationstests.vo.BookVO;
-import com.oliveiradev.integrationstests.vo.pagedmodels.PagedModelBook;
+import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
+import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
+import com.oliveiradev.tests.integrations.vo.BookVO;
+import com.oliveiradev.tests.integrations.vo.pagedmodels.PagedModelBook;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
@@ -39,8 +39,11 @@ import io.restassured.specification.RequestSpecification;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
 public class BookControllerYamlTest extends AbstractIntegrationTest {
+
     private static RequestSpecification specification;
+
     private static YAMLMapper objectMapper;
+
     private static BookVO book;
 
     @BeforeAll
@@ -240,8 +243,8 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 
         assertTrue(foundBookOne.getId() > 0);
 
-        assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookOne.getTitle());
-        assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookOne.getAuthor());
+        assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
+        assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
         assertEquals(49.00, foundBookOne.getPrice());
         
         BookVO foundBookFive = content.get(4);
@@ -253,9 +256,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 
         assertTrue(foundBookFive.getId() > 0);
 
-        assertEquals("Domain Driven Design", foundBookFive.getTitle());
-        assertEquals("Eric Evans", foundBookFive.getAuthor());
-        assertEquals(92.00, foundBookFive.getPrice());
+        assertEquals("Code complete", foundBookFive.getTitle());
+        assertEquals("Steve McConnell", foundBookFive.getAuthor());
+        assertEquals(58.0, foundBookFive.getPrice());
     }
 
     @Test

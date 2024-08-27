@@ -14,10 +14,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import com.oliveiradev.integrationstests.controller.withyaml.mapper.YAMLMapper;
-import com.oliveiradev.configs.TestConfigs;
-import com.oliveiradev.integrationstests.vo.AccountCredentialsVO;
-import com.oliveiradev.integrationstests.vo.TokenVO;
-import com.oliveiradev.integrationstests.testcontainers.AbstractIntegrationTest;
+import com.oliveiradev.tests.configs.TestConfigs;
+import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
+import com.oliveiradev.tests.integrations.vo.TokenVO;
 
 import io.restassured.config.EncoderConfig;
 import io.restassured.config.RestAssuredConfig;
@@ -25,7 +24,7 @@ import io.restassured.http.ContentType;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
-public class AuthControllerYamlTest extends AbstractIntegrationTest {
+public class AuthControllerYamlTest extends com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest {
 	private static YAMLMapper objectMapper;
 	private static TokenVO tokenVO;
 	

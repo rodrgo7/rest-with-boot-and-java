@@ -52,13 +52,17 @@ public class BookService {
 		return vo;
 	}
 
-	public BookVO create(BookVO book) {
+	public BookVO create (BookVO book) {
 		if (book == null) throw new RequiredObjectIsNullException();
-		
-		logger.info("Creating one book!");
+		logger.info("Creating one person");
+
 		var entity = mapper.map(book, Book.class);
-		var savedEntity = repository.save(entity);
-		var vo = mapper.map(savedEntity, BookVO.class);
+		entity = repository.save(entity);
+
+		logger.info("Generated ID: " + entity.getId());
+
+		var vo = mapper.map(entity, BookVO.class);
+
 		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
 		return vo;
 	}
