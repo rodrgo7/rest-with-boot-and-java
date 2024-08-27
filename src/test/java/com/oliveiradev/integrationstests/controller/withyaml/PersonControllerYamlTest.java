@@ -6,9 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -19,14 +16,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import com.oliveiradev.tests.configs.TestConfigs;
+import com.oliveiradev.configs.TestConfigs;
 import com.oliveiradev.data.vo.v1.security.TokenVO;
 import com.oliveiradev.integrationstests.controller.withyaml.mapper.YAMLMapper;
-import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
-import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
-import com.oliveiradev.tests.integrations.vo.PersonVO;
-import com.oliveiradev.tests.integrations.vo.pagedmodels.PagedModelPerson;
-import com.oliveiradev.tests.integrations.vo.wrappers.WrapperPersonVO;
+import com.oliveiradev.integrationstests.testcontainers.AbstractIntegrationTest;
+import com.oliveiradev.integrationstests.vo.AccountCredentialsVO;
+import com.oliveiradev.integrationstests.vo.PersonVO;
+import com.oliveiradev.integrationstests.vo.pagedmodels.PagedModelPerson;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;

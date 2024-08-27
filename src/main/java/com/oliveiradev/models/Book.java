@@ -22,7 +22,7 @@ public class Book implements Serializable {
     private long id;
     @Column(nullable = false, length = 280)
     private String author;
-    @Column(name = "launc_date", nullable = false)
+    @Column(name = "launch_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date launchDate;
     @Column(nullable = false)

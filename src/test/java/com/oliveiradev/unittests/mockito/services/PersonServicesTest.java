@@ -1,4 +1,4 @@
-package com.oliveiradev.tests.unittests.mockito.services;
+package com.oliveiradev.unittests.mockito.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,7 +20,7 @@ import com.oliveiradev.data.vo.v1.PersonVO;
 import com.oliveiradev.models.Person;
 import com.oliveiradev.repositories.PersonRepository;
 import com.oliveiradev.services.PersonService;
-import com.oliveiradev.tests.unittests.mapper.mocks.MockPerson;
+import com.oliveiradev.unittests.mapper.mocks.MockPerson;
 
 @TestInstance(Lifecycle.PER_CLASS)
 class PersonServicesTest {
@@ -60,7 +60,8 @@ class PersonServicesTest {
     assertEquals("Female", result.getGender());
 }
 
-   /*/ @Test
+   /*
+   @Test
     void testFindAll() {
     List<Person> list = input.mockEntityList();
     
@@ -109,6 +110,7 @@ class PersonServicesTest {
     assertEquals("Female", personSeven.getGender()); 
 }
 */
+
     @Test
     void testCreate() {
         Person persisted = input.mockEntity(1);

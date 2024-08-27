@@ -1,4 +1,4 @@
-package com.oliveiradev.tests.integrations.testcontainers;
+package com.oliveiradev.integrationstests.testcontainers;
 
 import java.util.Map;
 import java.util.stream.Stream;

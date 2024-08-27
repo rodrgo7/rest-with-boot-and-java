@@ -15,12 +15,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.oliveiradev.tests.configs.TestConfigs;
+import com.oliveiradev.configs.TestConfigs;
 import com.oliveiradev.data.vo.v1.security.TokenVO;
-import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
-import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
-import com.oliveiradev.tests.integrations.vo.PersonVO;
-import com.oliveiradev.tests.integrations.vo.wrappers.WrapperPersonVO;
+import com.oliveiradev.integrationstests.testcontainers.AbstractIntegrationTest;
+import com.oliveiradev.integrationstests.vo.AccountCredentialsVO;
+import com.oliveiradev.integrationstests.vo.PersonVO;
+import com.oliveiradev.integrationstests.vo.wrappers.WrapperPersonVO;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;

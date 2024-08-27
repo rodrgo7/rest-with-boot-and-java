@@ -25,7 +25,7 @@ public class BookService {
 	@Autowired
 	BookRepository repository;
 
-	//@Autowired
+	@Autowired
     ModelMapper mapper;
 
 	public List<BookVO> findAll() {

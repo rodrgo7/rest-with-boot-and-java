@@ -1,4 +1,4 @@
-package com.oliveiradev.tests;
+package com.oliveiradev;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

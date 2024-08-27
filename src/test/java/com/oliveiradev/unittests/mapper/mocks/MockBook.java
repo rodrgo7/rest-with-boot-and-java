@@ -1,4 +1,4 @@
-package com.oliveiradev.tests.unittests.mapper.mocks;
+package com.oliveiradev.unittests.mapper.mocks;
 
 import java.util.ArrayList;
 import java.util.Date;

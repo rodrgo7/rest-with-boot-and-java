@@ -20,12 +20,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.oliveiradev.tests.configs.TestConfigs;
+import com.oliveiradev.configs.TestConfigs;
 import com.oliveiradev.data.vo.v1.security.TokenVO;
-import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
-import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
-import com.oliveiradev.tests.integrations.vo.BookVO;
-import com.oliveiradev.tests.integrations.vo.pagedmodels.PagedModelBook;
+import com.oliveiradev.integrationstests.testcontainers.AbstractIntegrationTest;
+import com.oliveiradev.integrationstests.vo.AccountCredentialsVO;
+import com.oliveiradev.integrationstests.vo.BookVO;
+import com.oliveiradev.integrationstests.vo.pagedmodels.PagedModelBook;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -58,6 +58,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 				.basePath("/auth/signin")
 					.port(TestConfigs.SERVER_PORT)
 					.contentType(TestConfigs.CONTENT_XML)
+					.accept(TestConfigs.CONTENT_XML)
 				.body(user)
 					.when()
 				.post()
@@ -131,6 +132,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         assertNotNull(bookUpdated.getTitle());
         assertNotNull(bookUpdated.getAuthor());
         assertNotNull(bookUpdated.getPrice());
+
         assertEquals(bookUpdated.getId(), book.getId());
         assertEquals("Docker Deep Dive - Updated", bookUpdated.getTitle());
         assertEquals("Nigel Poulton", bookUpdated.getAuthor());
@@ -160,6 +162,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
         assertNotNull(foundBook.getTitle());
         assertNotNull(foundBook.getAuthor());
         assertNotNull(foundBook.getPrice());
+
         assertEquals(foundBook.getId(), book.getId());
         assertEquals("Docker Deep Dive - Updated", foundBook.getTitle());
         assertEquals("Nigel Poulton", foundBook.getAuthor());
@@ -236,6 +239,7 @@ public class BookControllerXmlTest extends AbstractIntegrationTest {
 		
 		given().spec(specificationWithoutToken)
 			.contentType(TestConfigs.CONTENT_XML)
+			.accept(TestConfigs.CONTENT_XML)
 				.when()
 				.get()
 			.then()

@@ -1,4 +1,4 @@
-package com.oliveiradev.tests.configs;
+package com.oliveiradev.configs;
 
 public class TestConfigs {
     public static final int SERVER_PORT = 8888;

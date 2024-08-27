@@ -1,4 +1,4 @@
-package com.oliveiradev.tests.integrations.vo;
+package com.oliveiradev.integrationstests.vo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -6,7 +6,7 @@ import java.util.Date;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class BookVO implements Serializable{
+public class BookVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;

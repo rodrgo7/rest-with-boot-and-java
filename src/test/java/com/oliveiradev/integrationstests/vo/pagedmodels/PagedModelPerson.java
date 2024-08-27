@@ -1,8 +1,8 @@
-package com.oliveiradev.tests.integrations.vo.pagedmodels;
+package com.oliveiradev.integrationstests.vo.pagedmodels;
 
 import java.util.List;
 
-import com.oliveiradev.tests.integrations.vo.PersonVO;
+import com.oliveiradev.integrationstests.vo.PersonVO;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;

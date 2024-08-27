@@ -21,7 +21,6 @@ import java.util.List;
 @RequestMapping("/api/book/v1")
 @Tag(name = "Book", description = "Endpoints for Managing Book")
 public class BookController {
-
 	@Autowired
 	private BookService service;
 
@@ -41,7 +40,7 @@ public class BookController {
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 					@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-			}
+		}
 	)
 
 	public List<BookVO> findAll() {
@@ -81,7 +80,7 @@ public class BookController {
 					@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-			}
+		}
 	)
 
 	public BookVO create(@RequestBody BookVO book) {
@@ -102,7 +101,7 @@ public class BookController {
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 					@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-			}
+		}
 	)
 
 	public BookVO update(@RequestBody BookVO book) {
@@ -119,7 +118,7 @@ public class BookController {
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 					@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 					@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
-			}
+		}
 	)
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		service.delete(id);

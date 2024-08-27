@@ -1,4 +1,4 @@
-package com.oliveiradev.tests.unittests.mapper;
+package com.oliveiradev.unittests.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.oliveiradev.data.vo.v1.PersonVO;
 import com.oliveiradev.mapper.ModelMapperConfig;
-import com.oliveiradev.tests.unittests.mapper.mocks.MockPerson;
+import com.oliveiradev.unittests.mapper.mocks.MockPerson;
 
 public class ModelConverterTest {
     
