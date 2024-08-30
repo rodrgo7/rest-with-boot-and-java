@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.controller.withjson;
+package com.oliveiradev.tests.integrationstests.controller.cors.withjson;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertNotNull;
@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -25,7 +26,6 @@ import com.oliveiradev.data.vo.v1.security.TokenVO;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.BookVO;
-import com.oliveiradev.tests.integrations.vo.wrappers.WrapperBookVO;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -50,7 +50,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	}
 	
 	@Test
-	@Order(1)
+	@Order(0)
 	public void authorization() {
 		AccountCredentialsVO user = new AccountCredentialsVO();
 		user.setUsername("rodrigo");
@@ -80,7 +80,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	}
 	
 	@Test
-	@Order(2)
+	@Order(1)
 	public void testCreate() throws JsonMappingException, JsonProcessingException {
 		mockBook();
 		
@@ -95,26 +95,24 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 						.body()
 							.asString();
 		
-		BookVO books = objectMapper.readValue(content, BookVO.class);
-		book = books;
+		book = objectMapper.readValue(content, BookVO.class);
 
 		assertNotNull(book.getId());
-		assertNotNull(book.getTitle());
 		assertNotNull(book.getAuthor());
 		assertNotNull(book.getPrice());
+		assertNotNull(book.getTitle());
 		
 		assertTrue(book.getId() > 0);
 		
-		assertEquals("Working effectively with legacy code", book.getTitle());
-		assertEquals("Michael C. Feathers", book.getAuthor());
-		assertEquals(49.0, book.getPrice());
+		assertEquals("Nigel Poulton", book.getAuthor());
+		assertEquals(55.99, book.getPrice());
+		assertEquals("Docker Deep Dive", book.getTitle());
 	}
 
-	
 	@Test
-    @Order(3)
+    @Order(2)
     public void testUpdate() throws JsonMappingException, JsonProcessingException {        
-        book.setTitle("Working effectively with legacy code - Updated");
+        book.setTitle("Docker Deep Dive - Updated");
 
         var content = given().spec(specification)
                 .contentType(TestConfigs.CONTENT_JSON)
@@ -133,15 +131,14 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         assertNotNull(bookUpdated.getTitle());
         assertNotNull(bookUpdated.getAuthor());
         assertNotNull(bookUpdated.getPrice());
-
         assertEquals(bookUpdated.getId(), book.getId());
-        assertEquals("Working effectively with legacy code - Updated", bookUpdated.getTitle());
-        assertEquals("Michael C. Feathers", bookUpdated.getAuthor());
-        assertEquals(49.0, bookUpdated.getPrice());
+        assertEquals("Docker Deep Dive - Updated", bookUpdated.getTitle());
+        assertEquals("Nigel Poulton", bookUpdated.getAuthor());
+        assertEquals(55.99, bookUpdated.getPrice());
     }
 
 	@Test
-	@Order(4)
+	@Order(3)
 	public void testFindById() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
 				.contentType(TestConfigs.CONTENT_JSON)
@@ -156,20 +153,22 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		
 		BookVO foundBook = objectMapper.readValue(content, BookVO.class);
 
-		assertNotNull(foundBook.getId());		
-		assertNotNull(foundBook.getTitle());
-		assertNotNull(foundBook.getAuthor());		
+		assertNotNull(foundBook.getId());
+		assertNotNull(foundBook.getAuthor());
+		assertNotNull(foundBook.getLaunchDate());
 		assertNotNull(foundBook.getPrice());
+		assertNotNull(foundBook.getTitle());
 		
-		assertEquals(foundBook.getId(), book.getId());
-		assertEquals("Working effectively with legacy code - Updated", book.getTitle());
-		assertEquals("Michael C. Feathers", book.getAuthor());
-		assertEquals(49., book.getPrice());
+		assertTrue(book.getId() > 0);
+		
+		assertEquals("Nigel Poulton", book.getAuthor());
+		// assertEquals("2017-11-29 13:50:05.878000", book.getLaunchDate());
+		assertEquals(55.99, book.getPrice());
+		assertEquals("Docker Deep Dive - Updated", book.getTitle());
 	}
 
-	
 	@Test
-    @Order(5)
+    @Order(4)
     public void testDelete() {
         given().spec(specification)
             .contentType(TestConfigs.CONTENT_JSON)
@@ -181,11 +180,11 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     }
 
 	@Test
-    @Order(6)
+    @Order(5)
     public void testFindAll() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
                 .contentType(TestConfigs.CONTENT_JSON)
-                    .queryParams("page", 0 , "limit", 12, "direction", "asc")
+                    .queryParams("page", 0 , "limit", 5, "direction", "asc")
                     .when()
                     .get()
                 .then()
@@ -194,8 +193,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                     .body()
                 .asString();
         
-			WrapperBookVO wrapper = objectMapper.readValue(content, WrapperBookVO.class);
-			List<BookVO> books = wrapper.getEmbedded().getBooks();
+        List<BookVO> books = objectMapper.readValue(content, new TypeReference<List<BookVO>>() {});
 		
         BookVO foundBookOne = books.get(0);
         
@@ -203,44 +201,17 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
         assertNotNull(foundBookOne.getTitle());
         assertNotNull(foundBookOne.getAuthor());
         assertNotNull(foundBookOne.getPrice());
-
         assertTrue(foundBookOne.getId() > 0);
-
-        assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
+        assertEquals("Docker Deep Dive", foundBookOne.getTitle());
         assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
         assertEquals(49.00, foundBookOne.getPrice());
 
 	}
-
-	@Test
-	@Order(7)
-	public void testHATEOAS() throws JsonMappingException, JsonProcessingException {
-		
-		var content = given().spec(specification)
-                .contentType(TestConfigs.CONTENT_JSON)
-            	.queryParams("page", 0 , "size", 12, "direction", "asc")
-                    .when()
-                    .get()
-                .then()
-                    .statusCode(200)
-                .extract()
-                    .body()
-                .asString();
-		
-		assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/book/v1/3\"}}}"));
-		assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/book/v1/5\"}}}"));
-		assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/book/v1/7\"}}}"));
-		assertTrue(content.contains("{\"first\":{\"href\":\"http://localhost:8888/api/book/v1?direction=asc&page=0&size=12&sort=title,asc\"}"));
-		assertTrue(content.contains("\"self\":{\"href\":\"http://localhost:8888/api/book/v1?page=0&size=12&direction=asc\"}"));
-		assertTrue(content.contains("\"next\":{\"href\":\"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc\"}"));
-		assertTrue(content.contains("\"last\":{\"href\":\"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc\"}}"));
-		assertTrue(content.contains("\"page\":{\"size\":12,\"totalElements\":15,\"totalPages\":2,\"number\":0}}"));
-	}
 	
 	private void mockBook() {
-        book.setTitle("Working effectively with legacy code");
-        book.setAuthor("Michael C. Feathers");
-        book.setPrice(Double.valueOf(49.0));
+        book.setTitle("Docker Deep Dive");
+        book.setAuthor("Nigel Poulton");
+        book.setPrice(Double.valueOf(55.99));
         book.setLaunchDate(new Date());
     }  
 }

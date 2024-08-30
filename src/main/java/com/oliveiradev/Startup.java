@@ -3,16 +3,6 @@ package com.oliveiradev;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/*import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm;*/
-
-import com.oliveiradev.Startup;
-
 @SpringBootApplication
 public class Startup {
 	public static void main(String[] args) {

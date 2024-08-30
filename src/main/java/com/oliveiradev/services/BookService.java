@@ -1,13 +1,17 @@
 package com.oliveiradev.services;
 
-import java.util.List;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import com.oliveiradev.controllers.BookController;
@@ -18,9 +22,11 @@ import com.oliveiradev.models.Book;
 import com.oliveiradev.repositories.BookRepository;
 
 @Service
-public class BookService {
-	
+public class BookService {	
 	private Logger logger = Logger.getLogger(BookService.class.getName());
+	
+	@Autowired
+	PagedResourcesAssembler<BookVO> assembler;
 	
 	@Autowired
 	BookRepository repository;
@@ -28,19 +34,24 @@ public class BookService {
 	@Autowired
     ModelMapper mapper;
 
-	public List<BookVO> findAll() {
-        logger.info("Finding all books!");
-
-        List<Book> books = repository.findAll();
-        List<BookVO> bookVOs = books.stream()
-            .map(book -> {
-                BookVO vo = mapper.map(book, BookVO.class);
-                vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
-                return vo;
-            })
-            .collect(Collectors.toList());
-        return bookVOs;
-    }
+	public PagedModel<EntityModel<BookVO>> findAll(Pageable pageable) {
+		logger.info("Finding all books!");
+	
+		var bookPage = repository.findAll(pageable);
+		var bookVosPage = bookPage.map(b -> mapper.map(b, BookVO.class));
+	
+		bookVosPage.forEach(b -> b.add(linkTo(methodOn(BookController.class)
+			.findById(b.getKey())).withSelfRel()));
+		
+		Link link = linkTo(
+			methodOn(BookController.class).findAll(
+				pageable.getPageNumber(),
+				pageable.getPageSize(),
+				"asc")).withSelfRel();
+		return assembler.toModel(bookVosPage, link);
+	}
+	
+	
 
 	public BookVO findById(Long id) {		
 		logger.info("Finding one book!");

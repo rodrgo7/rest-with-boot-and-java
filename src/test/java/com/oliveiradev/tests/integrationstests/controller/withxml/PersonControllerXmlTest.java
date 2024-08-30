@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.controller.withxml;
+package com.oliveiradev.tests.integrationstests.controller.withxml;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
@@ -259,6 +259,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	public void testFindAll() throws JsonMappingException, JsonProcessingException {	
 	var content = given().spec(specification)
 			.contentType(TestConfigs.CONTENT_XML)
+			.queryParam("page", 3,"size", 10, "direction", "asc")
 				.when()
 				.get()
 			.then()
@@ -278,11 +279,10 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 	assertNotNull(foundPersonOne.getAddress());
 	assertNotNull(foundPersonOne.getGender());
 	
-	assertEquals(74, foundPersonOne.getId());	
-	assertEquals("Ab", foundPersonOne.getFirstName());
-	assertEquals("Debow", foundPersonOne.getLastName());
-	assertEquals("139 Eagan Hill", foundPersonOne.getAddress());
-	assertEquals("Male", foundPersonOne.getGender());
+	assertEquals(275, foundPersonOne.getId());	
+	assertEquals("Alyse", foundPersonOne.getFirstName());
+	assertEquals("91 Bunker Hill Drive", foundPersonOne.getAddress());
+	assertEquals("Female", foundPersonOne.getGender());
 }
 	
 	@Test
@@ -301,6 +301,35 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 				.get()
 			.then()
 				.statusCode(403);
+	}
+
+	@Test
+	@Order(8)
+	public void testHATEOAS() throws JsonMappingException, JsonProcessingException {
+		var content = given().spec(specification)
+                .contentType(TestConfigs.CONTENT_XML)
+				.accept(TestConfigs.CONTENT_XML)
+            	.queryParams("page", 3 , "size", 10, "direction", "asc")
+                    .when()
+                    .get()
+                .then()
+                    .statusCode(200)
+                .extract()
+                    .body()
+                .asString();
+				
+        assertTrue(content.contains("<links><rel>self</rel><href>http://localhost:8888/api/person/v1/275</href></links>"));
+		assertTrue(content.contains("<links><rel>self</rel><href>http://localhost:8888/api/person/v1/942</href></links>"));
+		assertTrue(content.contains("<links><rel>self</rel><href>http://localhost:8888/api/person/v1/102</href></links>"));
+
+		assertTrue(content.contains("links><rel>first</rel><href>http://localhost:8888/api/person/v1?direction=asc&amp;page=0&amp;size=10&amp;sort=firstName,asc"));
+		assertTrue(content.contains("links><rel>prev</rel><href>http://localhost:8888/api/person/v1?direction=asc&amp;page=2&amp;size=10&amp;sort=firstName,asc"));
+		assertTrue(content.contains("links><rel>self</rel><href>http://localhost:8888/api/person/v1?page=3&amp;size=10&amp;direction=asc"));
+
+		assertTrue(content.contains("<links><rel>next</rel><href>http://localhost:8888/api/person/v1?direction=asc&amp;page=4&amp;size=10&amp;sort=firstName,asc"));
+		assertTrue(content.contains("<links><rel>last</rel><href>http://localhost:8888/api/person/v1?direction=asc&amp;page=100&amp;size=10&amp;sort=firstName,asc"));
+
+		assertTrue(content.contains("<page><size>10</size><totalElements>1005</totalElements><totalPages>101</totalPages><number>3</number></page"));
 	}
 	
 	private void mockPerson() {

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.oliveiradev.Startup; // Certifique-se de que esta é a classe correta
+import com.oliveiradev.Startup;
 import com.oliveiradev.tests.configs.TestConfigs;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 

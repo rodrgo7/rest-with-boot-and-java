@@ -43,9 +43,7 @@ public class PersonService {
         var personPage = repository.findAll(pageable);
         var personVosPage = personPage.map(p -> mapper.map(p, PersonVO.class));
 
-        personVosPage.map(
-            p -> p.add(
-                linkTo(methodOn(PersonController.class)
+        personVosPage.map(p -> p.add(linkTo(methodOn(PersonController.class)
             .findById(p.getKey())).withSelfRel()));
         
             Link link = linkTo(

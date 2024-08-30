@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.controller.withyaml.mapper;
+package com.oliveiradev.tests.integrationstests.controller.withyaml.mapper;
 
 import java.util.logging.Logger;
 

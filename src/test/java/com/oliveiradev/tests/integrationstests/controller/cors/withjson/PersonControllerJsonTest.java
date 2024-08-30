@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.controller.cors.withjson;
+package com.oliveiradev.tests.integrationstests.controller.cors.withjson;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertNotNull;

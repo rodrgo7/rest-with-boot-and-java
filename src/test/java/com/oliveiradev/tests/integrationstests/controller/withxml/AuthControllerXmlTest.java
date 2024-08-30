@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.controller.withxml;
+package com.oliveiradev.tests.integrationstests.controller.withxml;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

@@ -1,4 +1,4 @@
-package com.oliveiradev.integrationstests.controller.withyaml;
+package com.oliveiradev.tests.integrationstests.controller.withyaml;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import com.oliveiradev.tests.configs.TestConfigs;
 import com.oliveiradev.data.vo.v1.security.TokenVO;
-import com.oliveiradev.integrationstests.controller.withyaml.mapper.YAMLMapper;
+import com.oliveiradev.tests.integrationstests.controller.withyaml.mapper.YAMLMapper;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.BookVO;
@@ -243,9 +243,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 
         assertTrue(foundBookOne.getId() > 0);
 
-        assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
-        assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
-        assertEquals(49.00, foundBookOne.getPrice());
+        assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookOne.getTitle());
+        assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookOne.getAuthor());
+        assertEquals(54.0, foundBookOne.getPrice());
         
         BookVO foundBookFive = content.get(4);
         
@@ -256,9 +256,9 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 
         assertTrue(foundBookFive.getId() > 0);
 
-        assertEquals("Code complete", foundBookFive.getTitle());
-        assertEquals("Steve McConnell", foundBookFive.getAuthor());
-        assertEquals(58.0, foundBookFive.getPrice());
+        assertEquals("Domain Driven Design", foundBookFive.getTitle());
+        assertEquals("Eric Evans", foundBookFive.getAuthor());
+        assertEquals(92.0, foundBookFive.getPrice());
     }
 
     @Test
@@ -283,15 +283,17 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
 						.asString();
 		
 		var content = unthreatedContent.replace("\n", "").replace("\r", "");
+
+        System.out.println(content);
 		
-		assertTrue(content.contains("rel: \"self\"    href: \"http://localhost:8888/api/book/v1/3\""));
-		assertTrue(content.contains("rel: \"self\"    href: \"http://localhost:8888/api/book/v1/5\""));
-		assertTrue(content.contains("rel: \"self\"    href: \"http://localhost:8888/api/book/v1/7\""));
+		assertTrue(content.contains("rel: \"self\"  href: \"http://localhost:8888/api/book/v1/5\""));
+		assertTrue(content.contains("rel: \"self\"  href: \"http://localhost:8888/api/book/v1/2\""));
+		assertTrue(content.contains("rel: \"self\"  href: \"http://localhost:8888/api/book/v1/8\""));
 		
 		assertTrue(content.contains("rel: \"first\"  href: \"http://localhost:8888/api/book/v1?direction=asc&page=0&size=12&sort=title,asc\""));
-		assertTrue(content.contains("rel: \"self\"  href: \"http://localhost:8888/api/book/v1?page=0&size=12&direction=asc\""));
+		assertTrue(content.contains("rel: \"self\"   href: \"http://localhost:8888/api/book/v1?page=0&size=12&direction=asc\""));
 		assertTrue(content.contains("rel: \"next\"  href: \"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc\""));
-		assertTrue(content.contains("rel: \"last\"  href: \"http://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc\""));
+		assertTrue(content.contains("rel: \"last\"   href: \"hhttp://localhost:8888/api/book/v1?direction=asc&page=1&size=12&sort=title,asc\""));
 		
 		assertTrue(content.contains("page:  size: 12  totalElements: 15  totalPages: 2  number: 0"));
 	}
