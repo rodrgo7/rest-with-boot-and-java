@@ -2,6 +2,8 @@ server:
   port: 8888
 cors:
   originPatterns: http://localhohost:3000,http://localhost8080,https://www.google.com
+file: 
+  upload-dir: /Dev/UploadDir
 security:
   jwt:
     token:

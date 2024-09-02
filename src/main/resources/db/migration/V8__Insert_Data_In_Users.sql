@@ -1,3 +1,3 @@
 ﻿INSERT INTO `users` (`user_name`, `full_name`, `password`, `account_non_expired`, `account_non_locked`, `credentials_non_expired`, `enabled`) VALUES
-	('rodrigo', 'Rodrigo Oliveira', 'a74ea77a5159d760f692acd49d18fe32e540966f278e021c1675ed383aa8ae890167ce2e12f30e57', b'1', b'1', b'1', b'1'),
-	('fernanda', 'Fernanda Biazuzo', '59b120095ccdf3a393e56b21a08a4833031d12a04157d850ae3f90c5b263dc71e8ad78f3989558f0', b'1', b'1', b'1', b'1');
+	('rodrigo', 'Rodrigo Oliveira', '1d5f418d30ffc3f0a2c9dd3988cc6b47d11180ddb35e77d6b1e43bb43e90da5333202d06857767cb', b'1', b'1', b'1', b'1'),
+	('fernanda', 'Fernanda Biazuzo', '8a8de6b7b6fd5e6071d8a056d4c5d93c756d72864890873722286fe720120c6d048cbb6c74475a2e', b'1', b'1', b'1', b'1');
