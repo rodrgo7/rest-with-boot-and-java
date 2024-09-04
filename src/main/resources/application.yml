@@ -1,3 +1,5 @@
+server:
+  port: 80
 cors:
   originPatterns: http://localhohost:3000,http://localhost8080,https://www.google.com
 file: 
