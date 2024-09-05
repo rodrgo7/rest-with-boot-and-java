@@ -3,7 +3,7 @@ server:
 cors:
   originPatterns: http://localhohost:3000,http://localhost8080,https://www.google.com
 file: 
-  upload-dir: /Dev/UploadDir
+  upload-dir: /home/runner/work/rest-with-boot-and-java/UploadDir
 security:
   jwt:
     token:
