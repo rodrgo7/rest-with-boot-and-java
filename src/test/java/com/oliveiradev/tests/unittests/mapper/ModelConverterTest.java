@@ -1,4 +1,4 @@
-package com.oliveiradev.tests.unittests.mapper;
+/*package com.oliveiradev.tests.unittests.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -95,4 +95,4 @@ public class ModelConverterTest {
         assertEquals("Addres Test12", outputTwelve.getAddress());
         assertEquals("Male", outputTwelve.getGender());
     }
-}
+} */

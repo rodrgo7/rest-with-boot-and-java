@@ -138,41 +138,7 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		assertEquals("Barueri - SP", persistedPerson.getAddress());
 		assertEquals("Male", persistedPerson.getGender());
 	}
-
-	/*@Test
-	@Order(3)
-	public void testDisablePersonById() throws JsonMappingException, JsonProcessingException {
-		var content = given().spec(specification)
-				.contentType(TestConfigs.CONTENT_XML)
-				.accept(TestConfigs.CONTENT_XML)
-					.pathParam("id", person.getId())
-					.when()
-					.patch("{id}")
-				.then()
-					.statusCode(200)
-						.extract()
-						.body()
-							.asString();
-		
-		PersonVO persistedPerson = objectMapper.readValue(content, PersonVO.class);
-		person = persistedPerson;
-		
-		assertNotNull(persistedPerson);		
-		assertNotNull(persistedPerson.getId());
-		assertNotNull(persistedPerson.getFirstName());
-		assertNotNull(persistedPerson.getLastName());
-		assertNotNull(persistedPerson.getAddress());
-		assertNotNull(persistedPerson.getGender());
-
-		assertFalse(persistedPerson.getEnabled());
-
-		assertEquals(person.getId(), persistedPerson.getId());		
-		assertEquals("Rodrigo", persistedPerson.getFirstName());
-		assertEquals("Barros Oliveira", persistedPerson.getLastName());
-		assertEquals("Barueri - SP", persistedPerson.getAddress());
-		assertEquals("Male", persistedPerson.getGender());
-	}*/
-
+	
 	@Test
 	@Order(3)
 	public void testDisablePersonById() throws JsonMappingException, JsonProcessingException {			

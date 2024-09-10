@@ -19,13 +19,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${cors.originPatterns:default}")
 	private String corsOriginPatterns = "";
 
+    @SuppressWarnings("null")
     @Override
-    public void extendMessageConverters(@SuppressWarnings("null") List<HttpMessageConverter<?>> converters) {
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new YamlJackson2HttpMesageConverter());
     }
 
+    @SuppressWarnings("null")
     @Override
-	public void addCorsMappings(@SuppressWarnings("null") CorsRegistry registry) {
+	public void addCorsMappings(CorsRegistry registry) {
 		var allowedOrigins = corsOriginPatterns.split(",");
 		registry.addMapping("/**")
 			//.allowedMethods("GET", "POST", "PUT")
@@ -34,8 +36,9 @@ public class WebConfig implements WebMvcConfigurer {
 		.allowCredentials(true);
 	}
 
+    @SuppressWarnings("null")
     @Override
-    public void configureContentNegotiation(@SuppressWarnings("null") ContentNegotiationConfigurer configurer) {
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         
         // via QUERY PARAM.
         /*

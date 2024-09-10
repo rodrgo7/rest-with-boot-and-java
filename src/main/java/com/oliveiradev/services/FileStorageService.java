@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import com.oliveiradev.exceptions.MyFileNotFoundException;
 public class FileStorageService {
     private final Path fileStorageLocation;
 
-    @Autowired
+    //@Autowired
     public FileStorageService (FileStorageConfig fileStorageConfig) { 
         Path path = Paths.get(fileStorageConfig.getUploadDir())
             .toAbsolutePath().normalize();
@@ -33,6 +33,7 @@ public class FileStorageService {
         }
     }
 
+    @SuppressWarnings("null")
     public String storeFile(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {

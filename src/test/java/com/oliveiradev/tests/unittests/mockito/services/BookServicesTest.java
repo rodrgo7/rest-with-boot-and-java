@@ -71,7 +71,6 @@ class BookServicesTest {
 	    BookVO vo = input.mockVO(1);
 	    vo.setKey(1L);
     
-    // Corrigindo a ordem dos mocks para garantir que o mapeamento e salvamento estão corretos
 	    when(mapper.map(vo, Book.class)).thenReturn(entity);
 	    when(repository.save(any(Book.class))).thenReturn(persisted);
 	    when(mapper.map(persisted, BookVO.class)).thenReturn(vo);

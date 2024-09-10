@@ -17,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,6 +25,7 @@ import com.oliveiradev.data.vo.v1.security.TokenVO;
 import com.oliveiradev.tests.integrations.testcontainers.AbstractIntegrationTest;
 import com.oliveiradev.tests.integrations.vo.AccountCredentialsVO;
 import com.oliveiradev.tests.integrations.vo.BookVO;
+import com.oliveiradev.tests.integrations.vo.wrappers.WrapperBookVO;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -35,7 +35,7 @@ import io.restassured.specification.RequestSpecification;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(OrderAnnotation.class)
-public class BookControllerJsonTest extends AbstractIntegrationTest {	
+public class BookControllerCorsJsonTest extends AbstractIntegrationTest {	
 	private static RequestSpecification specification;
 	private static ObjectMapper objectMapper;
 
@@ -50,7 +50,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	}
 	
 	@Test
-	@Order(0)
+	@Order(1)
 	public void authorization() {
 		AccountCredentialsVO user = new AccountCredentialsVO();
 		user.setUsername("rodrigo");
@@ -80,7 +80,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	}
 	
 	@Test
-	@Order(1)
+	@Order(2)
 	public void testCreate() throws JsonMappingException, JsonProcessingException {
 		mockBook();
 		
@@ -110,7 +110,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 	}
 
 	@Test
-    @Order(2)
+    @Order(3)
     public void testUpdate() throws JsonMappingException, JsonProcessingException {        
         book.setTitle("Docker Deep Dive - Updated");
 
@@ -138,7 +138,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     }
 
 	@Test
-	@Order(3)
+	@Order(4)
 	public void testFindById() throws JsonMappingException, JsonProcessingException {
 		var content = given().spec(specification)
 				.contentType(TestConfigs.CONTENT_JSON)
@@ -162,13 +162,12 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 		assertTrue(book.getId() > 0);
 		
 		assertEquals("Nigel Poulton", book.getAuthor());
-		// assertEquals("2017-11-29 13:50:05.878000", book.getLaunchDate());
 		assertEquals(55.99, book.getPrice());
 		assertEquals("Docker Deep Dive - Updated", book.getTitle());
 	}
 
 	@Test
-    @Order(4)
+    @Order(5)
     public void testDelete() {
         given().spec(specification)
             .contentType(TestConfigs.CONTENT_JSON)
@@ -180,7 +179,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     }
 
 	@Test
-    @Order(5)
+    @Order(6)
     public void testFindAll() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
                 .contentType(TestConfigs.CONTENT_JSON)
@@ -193,19 +192,19 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
                     .body()
                 .asString();
         
-        List<BookVO> books = objectMapper.readValue(content, new TypeReference<List<BookVO>>() {});
-		
-        BookVO foundBookOne = books.get(0);
+			WrapperBookVO wrapper = objectMapper.readValue(content, WrapperBookVO.class);		
+			List<BookVO> books = wrapper.getEmbedded().getBooks();
+
+			BookVO foundBookOne = books.get(0);
         
         assertNotNull(foundBookOne.getId());
         assertNotNull(foundBookOne.getTitle());
         assertNotNull(foundBookOne.getAuthor());
         assertNotNull(foundBookOne.getPrice());
         assertTrue(foundBookOne.getId() > 0);
-        assertEquals("Docker Deep Dive", foundBookOne.getTitle());
-        assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
-        assertEquals(49.00, foundBookOne.getPrice());
-
+        assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookOne.getTitle());
+        assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookOne.getAuthor());
+        assertEquals(54.0, foundBookOne.getPrice());
 	}
 	
 	private void mockBook() {
