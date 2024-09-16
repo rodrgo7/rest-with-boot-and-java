@@ -1,0 +1,27 @@
+server:
+  port: 8888
+cors:
+  originPatterns: http://localhohost:3000,http://localhost8080,https://www.google.com
+file: 
+  upload-dir: /home/runner/work/rest-with-boot-and-java/UploadDir
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
+      expire-lenght: 3600000
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false
+springdoc:
+  pathsToMatch:
+    - /auth/**
+    - /api/**/v1/**
+  swagger-ui:
+    use-root-path: true

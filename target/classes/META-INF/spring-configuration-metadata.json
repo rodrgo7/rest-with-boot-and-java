@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "file",
+      "type": "com.oliveiradev.config.FileStorageConfig",
+      "sourceType": "com.oliveiradev.config.FileStorageConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "file.upload-dir",
+      "type": "java.lang.String",
+      "sourceType": "com.oliveiradev.config.FileStorageConfig"
+    }
+  ],
+  "hints": []
+}
